@@ -1,0 +1,26 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/RelativeLayout1"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <com.llvision.glxss.common.ui.CameraTextureView
+        android:id="@+id/camera_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_centerInParent="true" />
+
+
+    <io.agora.tutorials.utils.FontIconView
+        android:id="@+id/icon_close"
+        android:text="@string/hang_up"
+        android:textColor="#FF0000"
+        android:textSize="40dp"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="80dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+
+</RelativeLayout>

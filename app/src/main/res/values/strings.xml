@@ -1,0 +1,85 @@
+<resources>
+    <!-- APP名字  -->
+    <string name="app_name">LIVE CAR</string>
+
+    <!-- PLEASE KEEP THIS App ID IN SAFE PLACE -->
+    <!-- Get your own App ID at https://dashboard.agora.io/ -->
+    <!-- After you entered the App ID, remove <##> outside of Your App ID -->
+    <!-- For formal released project, please use Security Keys
+        https://docs.agora.io/en/Video/token?platform=All%20Platforms -->
+    <!-- Tutorial Step 1 -->
+    <string name="agora_app_id">e9cbe168d89941938a333e51f6aa327c</string>
+    <string name="str_common_type">通用模型</string>
+    <string name="str_frame_src">数据来源</string>
+    <string name="str_is_pre_process">是否预处理</string>
+
+    <string name="str_common_model">通用模型</string>
+    <string name="str_private_model">私有模型</string>
+    <string name="str_camera">Camera</string>
+    <string name="str_host">Host</string>
+    <string name="str_yes">Yes</string>
+    <string name="str_no">No</string>
+    <string name="cpu_count">VPU数目</string>
+    <string name="str_cache_memory">缓存内存</string>
+    <string name="str_scratch_memory">模型内存</string>
+    <string name="str_input_data_format">InputFormat</string>
+    <string name="str_output_data_format">OutputFormat</string>
+    <string name="参数配置成功">str_config_pre_process_success</string>
+    <string-array name="intput_data_format">
+        <item>YV12_YVYU</item>
+        <item>YUV422P</item>
+        <item>RGB888</item>
+        <item>BGR888</item>
+    </string-array>
+
+    <string name="device_connected">设备已连接</string>
+    <string name="device_disconnect">设备未连接</string>
+    <string name="open_wifi_peremission">请开启WIFI权限</string>
+    <string name="start_rtsp_server">正在开启RTSP服务</string>
+
+<!--    设备信息-->
+    <string name="software_version_number">软件版本号:</string>
+    <string name="hardware_version">硬件版本号:</string>
+    <string name="firmware_project_name">固件项目名称:</string>
+    <string name="code_version">编码版本号:</string>
+    <string name="product_id">产品ID:</string>
+    <string name="manufacturer_id">厂商ID:</string>
+    <string name="bsn">主板序列号/BSN:</string>
+    <string name="psn">整机序列号/PSN:</string>
+    <string name="bomid">BOMID:</string>
+    <string name="isp">ISP版本号:</string>
+    <string name="daughter_board">子板固件:</string>
+    <string name="resolution_ratio_weight">显示器的分辨率宽度:</string>
+    <string name="resolution_ratio_height">显示器的分辨率高度:</string>
+    <string name="glxss_id">GLXSS ID:</string>
+    <string name="software_version">Software Version:</string>
+
+
+    <string name="user_information">个人信息</string>
+    <string name="setting">设置</string>
+    <string name="logout">退出登录</string>
+    <string name="login_np">账号密码登录</string>
+    <string name="input_mobile">请输入手机号</string>
+    <string name="input_password">请输入密码</string>
+    <string name="login">登录</string>
+    <string name="dnd_mode">免打扰模式</string>
+    <string name="switch_on">开</string>
+    <string name="switch_off">关</string>
+    <string name="user_info_head">头像</string>
+    <string name="user_info_name">昵称</string>
+    <string name="user_info_mobile">手机号</string>
+    <string name="mobile_empty">手机号不能为空!!!</string>
+    <string name="psd_empty">密码不能为空!!!</string>
+    <string name="mp_error">账号密码错误</string>
+    <string name="dnd_mode_open">勿扰模式开启中..</string>
+    <string name="wait_called">等待被呼叫..</string>
+    <string name="dialog_title">确定退出当前账号吗?</string>
+    <string name="dialog_ok">确定</string>
+    <string name="dialog_no">取消</string>
+
+
+    <!-- ***********************阿里巴巴矢量图标库代码*************************************** -->
+    <string name="hang_up">&#xe60e;</string>//挂断
+    <string name="answer">&#xe605;</string>//接听
+    <string name="client_head">&#xe60d;</string>//客户头像
+</resources>

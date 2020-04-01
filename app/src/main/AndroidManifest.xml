@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    package="io.agora.tutorials.customizedvideosource">
+
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" />
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.BLUETOOTH" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" /> <!-- 息屏显示 -->
+    <uses-permission android:name="android.permission.DISABLE_KEYGUARD" /> <!-- 电源锁 -->
+    <uses-permission
+        android:name="android.permission.DEVICE_POWER"
+        tools:ignore="ProtectedPermissions" />
+    <uses-permission
+        android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS"
+        tools:ignore="ProtectedPermissions" />
+    <uses-permission
+        android:name="android.permission.WRITE_SETTINGS"
+        tools:ignore="ProtectedPermissions" />
+    <uses-permission android:name="android.hardware.usb.host" />
+
+    <uses-feature
+        android:glEsVersion="0x00020000"
+        android:required="true" />
+
+    <application
+        android:name="io.agora.tutorials.application.MyApplication"
+        android:allowBackup="true"
+        android:enabled="true"
+        android:icon="@drawable/icon"
+        android:label="@string/app_name"
+        android:supportsRtl="true"
+        android:theme="@style/MyAppTheme"
+        android:usesCleartextTraffic="true">
+        <activity android:name="io.agora.tutorials.activity.UserInformationActivity"></activity>
+        <activity android:name="io.agora.tutorials.activity.SettingActivity" />
+        <activity android:name="io.agora.tutorials.activity.MainActivity" />
+        <activity android:name="io.agora.tutorials.activity.CalledActivity" />
+        <activity
+            android:name="io.agora.tutorials.activity.LoginActivity"
+            android:screenOrientation="sensorPortrait"
+            android:theme="@style/FullScreenVideoTheme">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="io.agora.tutorials.activity.CameraActivity"
+            android:screenOrientation="landscape"
+            android:theme="@style/FullScreenVideoTheme" />
+        <activity android:name="io.agora.tutorials.activity.VideoChatViewActivity" />
+
+        <service
+            android:name="io.agora.tutorials.service.CalledService"
+            android:enabled="true">
+            <intent-filter android:priority="1000">
+                <action android:name="android.intent.action.RESPOND_VIA_MESSAGE" />
+            </intent-filter>
+        </service>
+    </application>
+
+</manifest>

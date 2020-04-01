@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="io.agora.tutorials.activity.SettingActivity">
+
+    <!--标题栏样式一-->
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?actionBarSize"
+        android:background="@color/colorPrimary"
+        app:subtitleTextColor="@android:color/white"
+        app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+        app:title="@string/setting"
+        app:titleTextColor="@android:color/white"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:padding="20dp">
+
+        <TextView
+            android:text="@string/dnd_mode"
+            android:textSize="17dp"
+            android:layout_weight="1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <Switch
+            android:id="@+id/mute_switch"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:thumb="@drawable/switch_custom_thumb_selector"
+            android:track="@drawable/switch_custom_track_selector"
+            android:textOn="@string/switch_on"
+            android:textOff="@string/switch_off"
+            android:checked="false"/>
+    </LinearLayout>
+
+</LinearLayout>

@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <!--点击 -->
+    <item android:drawable="@drawable/menu_linearlayout_pressed" android:state_pressed="true"></item>
+    <!--放开 -->
+    <item android:drawable="@drawable/menu_linearlayout_unpressed" android:state_pressed="false" android:state_selected="false"></item>
+</selector>
