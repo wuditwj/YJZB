@@ -144,7 +144,7 @@ public class MainActivity extends BasePermissionActivity {
                 showDialog();
                 break;
             case R.id.show_mute:
-                startActivity(new Intent(this, CameraActivity.class));
+                startActivity(new Intent(this, Camera2Activity.class));
                 break;
         }
     }

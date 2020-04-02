@@ -9,6 +9,8 @@
         https://docs.agora.io/en/Video/token?platform=All%20Platforms -->
     <!-- Tutorial Step 1 -->
     <string name="agora_app_id">e9cbe168d89941938a333e51f6aa327c</string>
+    <string name="TRTCCloud_app_id">1400344863</string>
+    <string name="TRTCCloud_app_key">d34db8ba4bdcb1f192f2bb921450bed54964e49335752f64c7db0d7e9d4eb10f</string>
     <string name="str_common_type">通用模型</string>
     <string name="str_frame_src">数据来源</string>
     <string name="str_is_pre_process">是否预处理</string>
@@ -37,7 +39,7 @@
     <string name="open_wifi_peremission">请开启WIFI权限</string>
     <string name="start_rtsp_server">正在开启RTSP服务</string>
 
-<!--    设备信息-->
+    <!--    设备信息-->
     <string name="software_version_number">软件版本号:</string>
     <string name="hardware_version">硬件版本号:</string>
     <string name="firmware_project_name">固件项目名称:</string>

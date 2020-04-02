@@ -10,7 +10,9 @@ android {
         versionCode 1
         versionName "1.0"
         ndk {
-            abiFilters "armeabi-v7a", "arm64-v8a", "x86", "x86_64"
+//            abiFilters "armeabi-v7a", "arm64-v8a", "x86", "x86_64"
+            //腾讯云
+            abiFilters "armeabi", "armeabi-v7a", "arm64-v8a"
         }
     }
 
@@ -20,6 +22,15 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+
+//    packagingOptions {
+//        pickFirst '**/libc++_shared.so'
+//        doNotStrip '*/armeabi/libYTCommon.so'
+//        doNotStrip '*/armeabi-v7a/libYTCommon.so'
+//        doNotStrip '*/x86/libYTCommon.so'
+//        doNotStrip '*/arm64-v8a/libYTCommon.so'
+//    }
+
     sourceSets {
         main {
             jniLibs.srcDirs = ['../../../libs']
@@ -34,6 +45,8 @@ repositories {
 }
 
 dependencies {
+    //添加引用 jar 库的代码
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation 'com.android.support:appcompat-v7:26.1.0'
     implementation 'com.android.support:support-v4:26.1.0'
     implementation 'com.android.support.constraint:constraint-layout:1.1.3'
@@ -43,7 +56,6 @@ dependencies {
     implementation "android.arch.persistence.room:runtime:1.0.0"
     annotationProcessor "android.arch.persistence.room:compiler:1.0.0"
     //亮亮眼镜包
-    implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation(name: 'common-basic-release-3.3.3', ext: 'aar')
     implementation(name: 'core_GLXSS-basic-release-3.3.3', ext: 'aar')
     implementation(name: 'library-basic-release-3.3.3', ext: 'aar')
@@ -68,4 +80,6 @@ dependencies {
     //room
     implementation 'android.arch.persistence.room:runtime:1.0.0'
     annotationProcessor 'android.arch.persistence.room:compiler:1.0.0'
+    //腾讯云
+    implementation 'com.tencent.liteav:LiteAVSDK_TRTC:latest.release'
 }
