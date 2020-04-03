@@ -115,7 +115,7 @@ public class CalledActivity extends AppCompatActivity {
                         BellUtils.stopPlay();
                         //接通通话
                         new CallInServerCenter(CalledActivity.this).startCall();
-                        startActivity(new Intent(CalledActivity.this, CameraActivity.class));
+                        startActivity(new Intent(CalledActivity.this, Camera2Activity.class));
                         finish();
                         break;
                 }

@@ -2,7 +2,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     package="io.agora.tutorials.customizedvideosource">
-
     <!-- 腾讯云所需要的权限 -->
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
@@ -14,13 +13,13 @@
     <uses-permission android:name="android.permission.BLUETOOTH" />
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
-    <uses-feature android:name="android.hardware.Camera"/>
+
+    <uses-feature android:name="android.hardware.Camera" />
     <uses-feature android:name="android.hardware.camera.autofocus" />
 
     <uses-permission android:name="android.permission.VIBRATE" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
     <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
-
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE" /> <!-- 息屏显示 -->
     <uses-permission android:name="android.permission.DISABLE_KEYGUARD" /> <!-- 电源锁 -->
     <uses-permission
@@ -47,6 +46,7 @@
         android:supportsRtl="true"
         android:theme="@style/MyAppTheme"
         android:usesCleartextTraffic="true">
+        <activity android:name="io.agora.tutorials.activity.FormActivity"></activity>
         <activity android:name="io.agora.tutorials.activity.UserInformationActivity" />
         <activity android:name="io.agora.tutorials.activity.SettingActivity" />
         <activity android:name="io.agora.tutorials.activity.MainActivity" />
@@ -65,9 +65,10 @@
             android:name="io.agora.tutorials.activity.CameraActivity"
             android:screenOrientation="landscape"
             android:theme="@style/FullScreenVideoTheme" />
-        <activity android:name="io.agora.tutorials.activity.Camera2Activity"
+        <activity
+            android:name="io.agora.tutorials.activity.Camera2Activity"
             android:screenOrientation="landscape"
-            android:theme="@style/FullScreenVideoTheme"/>
+            android:theme="@style/FullScreenVideoTheme" />
         <activity android:name="io.agora.tutorials.activity.VideoChatViewActivity" />
 
         <service

@@ -7,8 +7,7 @@ import android.os.Bundle;
 import android.util.Log;
 
 import io.agora.tutorials.activity.CalledActivity;
-import io.agora.tutorials.application.MyApplication;
-import io.agora.tutorials.activity.CameraActivity;
+import io.agora.tutorials.activity.Camera2Activity;
 import io.agora.tutorials.db.UserDatabase;
 import io.agora.tutorials.entity.CalledInfo;
 import io.agora.tutorials.entity.CallStatus;
@@ -83,8 +82,8 @@ public class CallInServerCenter {
                                 if (CalledActivity.calledActivity != null) {
                                     CalledActivity.calledActivity.finish();
                                 }
-                                if (CameraActivity.cameraActivity != null) {
-                                    CameraActivity.cameraActivity.finish();
+                                if (Camera2Activity.cameraActivity != null) {
+                                    Camera2Activity.cameraActivity.finish();
                                 }
                                 break;
                         }
@@ -117,6 +116,7 @@ public class CallInServerCenter {
                         Bundle myBundle = new Bundle();
                         myBundle.putString("name", clientInfo.getData().getNickname());
                         myBundle.putString("head", clientInfo.getData().getHeadimgurl());
+                        myBundle.putString("mobile", clientInfo.getData().getMobile());
                         intent.putExtra("message", myBundle);
                         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_EXCLUDE_FROM_RECENTS);
                         context.startActivity(intent);

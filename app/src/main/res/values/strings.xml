@@ -78,6 +78,15 @@
     <string name="dialog_title">确定退出当前账号吗?</string>
     <string name="dialog_ok">确定</string>
     <string name="dialog_no">取消</string>
+    <string name="form_title">客户信息填写</string>
+    <string name="form_client_screen_name">客户网名:</string>
+    <string name="form_client_mobile">客户电话:</string>
+    <string name="form_client_sex">客户性别:</string>
+    <string name="form_car_type">车型:</string>
+    <string name="form_client_level">客户级别:</string>
+    <string name="form_test_drive">是否愿意试驾:</string>
+    <string name="form_cause">原因:</string>
+    <string name="form_commit">提交</string>
 
 
     <!-- ***********************阿里巴巴矢量图标库代码*************************************** -->

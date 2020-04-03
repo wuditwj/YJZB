@@ -70,7 +70,6 @@ public class Camera2Fragment extends BaseFragment implements View.OnClickListene
 
     private TRTCCloud mTRTCCloud;
 
-
     public Camera2Fragment() {
     }
 
@@ -255,7 +254,6 @@ public class Camera2Fragment extends BaseFragment implements View.OnClickListene
             trtcVideoFrame.width=1280;
             trtcVideoFrame.height=720;
             trtcVideoFrame.timestamp=0;
-            trtcVideoFrame.rotation=90;
             mTRTCCloud.sendCustomVideoData(trtcVideoFrame);
         }
     };
@@ -415,11 +413,47 @@ public class Camera2Fragment extends BaseFragment implements View.OnClickListene
                 super.onUserAudioAvailable(s, b);
             }
 
+            //有用户加入房间
+            @Override
+            public void onRemoteUserEnterRoom(String s) {
+                Log.i("--==>>","用户加入房间id:"+s);
+                //远端用户旋转画面
+                mTRTCCloud.setRemoteViewRotation(s, TRTCCloudDef.TRTC_VIDEO_ROTATION_90);
+                //图像铺满屏幕，超出显示视窗的视频部分将被裁剪
+                mTRTCCloud.setRemoteViewFillMode(s,TRTCCloudDef.TRTC_VIDEO_RENDER_MODE_FILL);
+            }
+
+            //有用户离开房间
+            @Override
+            public void onRemoteUserLeaveRoom(String s, int i) {
+                String str="";
+                switch (i){
+                    case 1:
+                        str="用户主动退出房间";
+                        break;
+                    case 2:
+                        str="用户超时退出";
+                        break;
+                    case 3:
+                        str="用户被踢出房间";
+                        break;
+                }
+                Log.i("--==>>","用户离开房间：原因:"+str);
+                getActivity().finish();
+            }
 
             //退房监听
             @Override
             public void onExitRoom(int i) {
                 Log.i("--==>>", "退出房间成功");
+            }
+
+            //SDK跟服务器断开
+            @Override
+            public void onConnectionLost() {
+                Toast.makeText(getActivity().getApplicationContext(),"SDK跟服务器断开",Toast.LENGTH_SHORT).show();
+                Log.i("--==>>","SDK跟服务器断开");
+                getActivity().finish();
             }
         });
         //创建房间并进入
