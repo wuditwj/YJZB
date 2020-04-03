@@ -259,6 +259,7 @@ public class Camera2Fragment extends BaseFragment implements View.OnClickListene
     };
 
 
+
     private void openDisplay() throws BaseException {
         if (mLcdClient == null) {
             mLcdClient = (ILCDClient) LLVisionGlass3SDK.getInstance().getGlass3Client
@@ -420,7 +421,7 @@ public class Camera2Fragment extends BaseFragment implements View.OnClickListene
                 //远端用户旋转画面
                 mTRTCCloud.setRemoteViewRotation(s, TRTCCloudDef.TRTC_VIDEO_ROTATION_90);
                 //图像铺满屏幕，超出显示视窗的视频部分将被裁剪
-                mTRTCCloud.setRemoteViewFillMode(s,TRTCCloudDef.TRTC_VIDEO_RENDER_MODE_FILL);
+                mTRTCCloud.setRemoteViewFillMode(s,TRTCCloudDef.TRTC_VIDEO_RENDER_MODE_FIT);
             }
 
             //有用户离开房间
@@ -490,7 +491,7 @@ public class Camera2Fragment extends BaseFragment implements View.OnClickListene
     public void onDestroyView() {
         Toast.makeText(getActivity(), "用户已离开通话", Toast.LENGTH_SHORT).show();
         // 结束录音
-//        mTRTCCloud.stopAudioRecording();
+        mTRTCCloud.stopAudioRecording();
         super.onDestroyView();
         if (mICameraDevice != null) {
             mICameraDevice.release();
@@ -521,5 +522,12 @@ public class Camera2Fragment extends BaseFragment implements View.OnClickListene
         //停止通话
         new CallInServerCenter(getActivity()).closeCall();
         getActivity().finish();
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        // 调用退房后请等待 onExitRoom 事件回调
+        mTRTCCloud.exitRoom();
     }
 }

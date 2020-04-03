@@ -48,6 +48,7 @@ import io.agora.tutorials.customizedvideosource.R;
 import io.agora.tutorials.service.CalledService;
 import io.agora.tutorials.utils.CircleTransform;
 import io.agora.tutorials.utils.ScreenInfoUtils;
+import test.TestActivity;
 
 public class MainActivity extends BasePermissionActivity {
 
@@ -144,7 +145,7 @@ public class MainActivity extends BasePermissionActivity {
                 showDialog();
                 break;
             case R.id.show_mute:
-                startActivity(new Intent(this, Camera2Activity.class));
+                startActivity(new Intent(this, CameraActivity.class));
                 break;
         }
     }

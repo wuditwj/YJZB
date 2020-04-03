@@ -46,7 +46,8 @@
         android:supportsRtl="true"
         android:theme="@style/MyAppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name="io.agora.tutorials.activity.FormActivity"></activity>
+        <activity android:name="test.TestActivity"></activity>
+        <activity android:name="io.agora.tutorials.activity.FormActivity" />
         <activity android:name="io.agora.tutorials.activity.UserInformationActivity" />
         <activity android:name="io.agora.tutorials.activity.SettingActivity" />
         <activity android:name="io.agora.tutorials.activity.MainActivity" />

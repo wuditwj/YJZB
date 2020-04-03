@@ -7,7 +7,7 @@ import android.os.Bundle;
 import android.util.Log;
 
 import io.agora.tutorials.activity.CalledActivity;
-import io.agora.tutorials.activity.Camera2Activity;
+import io.agora.tutorials.activity.CameraActivity;
 import io.agora.tutorials.db.UserDatabase;
 import io.agora.tutorials.entity.CalledInfo;
 import io.agora.tutorials.entity.CallStatus;
@@ -82,9 +82,9 @@ public class CallInServerCenter {
                                 if (CalledActivity.calledActivity != null) {
                                     CalledActivity.calledActivity.finish();
                                 }
-                                if (Camera2Activity.cameraActivity != null) {
-                                    Camera2Activity.cameraActivity.finish();
-                                }
+//                                if (CameraActivity.cameraActivity != null) {
+//                                    CameraActivity.cameraActivity.finish();
+//                                }
                                 break;
                         }
                     } else {
