@@ -103,7 +103,8 @@ public class LoginActivity extends AppCompatActivity {
                         if (loginInfo.getStatus().equals("success")) {
                             Log.i("--==>>", "登录成功:" + loginInfo.toString());
                             head = loginInfo.getData().getPhoto();
-                            insertUser(loginInfo.getData().getAdmin_id(),
+                            insertUser(loginInfo.getData().getId(),
+                                    loginInfo.getData().getAdmin_id(),
                                     loginInfo.getData().getNickname(),
                                     loginInfo.getData().getPhoto(),
                                     loginInfo.getData().getHouse_id(),
@@ -131,8 +132,8 @@ public class LoginActivity extends AppCompatActivity {
     /**
      * 把用户数据添加进数据库
      */
-    private void insertUser(int admin_id,String nickname, String photo, int house_id, String mobile, String password) {
-        UserInfo userInfo = new UserInfo(admin_id,nickname, photo, house_id, mobile, password);
+    private void insertUser(int user_id,int admin_id,String nickname, String photo, int house_id, String mobile, String password) {
+        UserInfo userInfo = new UserInfo(user_id,admin_id,nickname, photo, house_id, mobile, password);
         UserDatabase.getInstance(this).getUserDao().insert(userInfo);
     }
 

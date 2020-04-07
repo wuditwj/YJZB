@@ -249,9 +249,17 @@ public class CameraFragment extends BaseFragment implements View.OnClickListener
         public void onFirstRemoteVideoDecoded(final int uid, int width, int height, int elapsed) { // Tutorial Step 5
         }
 
+        //远端用户加入当前频道回调
+        @Override
+        public void onUserJoined(int uid, int elapsed) {
+            super.onUserJoined(uid, elapsed);
+            Log.i("--==>>", "远端用户加入房间 Id:" + uid);
+        }
+
+        //远端用户离开当前频道回调
         @Override
         public void onUserOffline(int uid, int reason) {
-            Log.i("--==>", "用户断线");
+            Log.i("--==>>", "远端用户离开房间 Id:" + uid);
             getActivity().finish();
         }
     };
@@ -374,7 +382,7 @@ public class CameraFragment extends BaseFragment implements View.OnClickListener
             vf.rotation = 90;
             //声网通过pushExternalVideoFrame将视频发送给SDK
             boolean result = mRtcEngine.pushExternalVideoFrame(vf);
-//            Log.i("--==>>", "推流" + result);
+            Log.i("--==>>", "推流" + result);
         }
     };
 

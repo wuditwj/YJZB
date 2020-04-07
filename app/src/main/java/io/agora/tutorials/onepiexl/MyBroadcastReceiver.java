@@ -13,7 +13,7 @@ import io.agora.tutorials.service.CalledService;
 
 public class MyBroadcastReceiver extends BroadcastReceiver {
 
-    private boolean flag;
+    //    private boolean flag;
     private boolean loginState;
 
     @Override
@@ -23,8 +23,9 @@ public class MyBroadcastReceiver extends BroadcastReceiver {
         for (ActivityManager.RunningServiceInfo service : manager.getRunningServices(Integer.MAX_VALUE)) {
             Log.i("--==>>", "检查服务是否运行");
             //获取勿扰模式是否开启
+            //登录状态
             SharedPreferences sharedPreferences = MyApplication.getInstance().getApplicationContext().getSharedPreferences("login", Context.MODE_PRIVATE);
-            flag = sharedPreferences.getBoolean("mute", false);
+//            flag = sharedPreferences.getBoolean("mute", false);
             loginState = sharedPreferences.getBoolean("loginState", false);
 
 
@@ -34,14 +35,12 @@ public class MyBroadcastReceiver extends BroadcastReceiver {
                 isServiceRunning = false;
             }
         }
-        if (loginState && !flag) {
-            if (!isServiceRunning) {
-                Intent i = new Intent(context, CalledService.class);
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                    context.startForegroundService(i);
-                } else {
-                    context.startService(i);
-                }
+        if (loginState && !isServiceRunning) {
+            Intent i = new Intent(context, CalledService.class);
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                context.startForegroundService(i);
+            } else {
+                context.startService(i);
             }
         }
     }

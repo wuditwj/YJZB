@@ -12,13 +12,21 @@ import android.util.Log;
 import android.view.View;
 import android.widget.CompoundButton;
 import android.widget.Switch;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import io.agora.tutorials.application.MyApplication;
 import io.agora.tutorials.customizedvideosource.R;
+import io.agora.tutorials.entity.CallStatus;
+import io.agora.tutorials.entity.MuteInfo;
+import io.agora.tutorials.net.NetClient;
 import io.agora.tutorials.service.CalledService;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class SettingActivity extends AppCompatActivity {
     //标题栏
@@ -47,64 +55,81 @@ public class SettingActivity extends AppCompatActivity {
                 finish();
             }
         });
+        NetClient.getInstance().getTreatrueApi().getMute(MyApplication.getInstance().getUserInfo().getUser_id()).enqueue(new Callback<MuteInfo>() {
+            @Override
+            public void onResponse(Call<MuteInfo> call, Response<MuteInfo> response) {
+                if (response.isSuccessful()) {
+                    MuteInfo muteInfo = response.body();
+                    if (muteInfo != null) {
+                        //1代表可接通,2代表勿扰
+                        if (muteInfo.getData().getRest().equals("2")) {
+                            muteSwitch.setChecked(true);
+                        } else {
+                            muteSwitch.setChecked(false);
+                        }
+                    } else {
+                        Log.i("--==>>", "未知错误");
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<MuteInfo> call, Throwable t) {
+                Log.i("--==>>", "查询勿扰状态请求失败" + t.getMessage());
+            }
+        });
         //判断勿扰状态
-        SharedPreferences sharedPreferences = getSharedPreferences("login", Context.MODE_PRIVATE);
-        boolean flag = sharedPreferences.getBoolean("mute", false);
-        muteSwitch.setChecked(flag);
         muteSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked) {
-                    //开启免打扰,就是关闭服务
-                    if (isServiceRunning(SettingActivity.this, "io.agora.tutorials.service.CalledService")) {
-                        //关闭服务
-                        stopService(new Intent(SettingActivity.this, CalledService.class));
-                        setMute(true);
-                    } else {
-                    }
+                    NetClient.getInstance().getTreatrueApi().setMute(MyApplication.getInstance().getUserInfo().getUser_id(),
+                            2).enqueue(new Callback<CallStatus>() {
+                        @Override
+                        public void onResponse(Call<CallStatus> call, Response<CallStatus> response) {
+                            showMute(response);
+                        }
+
+                        @Override
+                        public void onFailure(Call<CallStatus> call, Throwable t) {
+                            Log.i("--==>>", "更改状态请求失败" + t.getMessage());
+                        }
+                    });
                 } else {
                     //关闭免打扰,就是开启服务
-                    if (isServiceRunning(SettingActivity.this, "io.agora.tutorials.service.CalledService")) {
-                    } else {
-                        //开启服务
-                        startService(new Intent(SettingActivity.this, CalledService.class));
-                        setMute(false);
-                    }
+                    NetClient.getInstance().getTreatrueApi().setMute(MyApplication.getInstance().getUserInfo().getUser_id(),
+                            1).enqueue(new Callback<CallStatus>() {
+                        @Override
+                        public void onResponse(Call<CallStatus> call, Response<CallStatus> response) {
+                            showMute(response);
+                        }
+
+                        @Override
+                        public void onFailure(Call<CallStatus> call, Throwable t) {
+                            Log.i("--==>>", "更改状态请求失败" + t.getMessage());
+                        }
+                    });
                 }
             }
         });
     }
 
-    /**
-     * 存储勿扰状态
-     * @param flag
-     */
-    private void setMute(boolean flag){
-        SharedPreferences sharedPreferences = getSharedPreferences("login", Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putBoolean("mute", flag);
-        editor.commit();
-    }
-
-    /**
-     * 判断服务是否开启
-     *
-     * @return
-     */
-    public static boolean isServiceRunning(Context context, String ServiceName) {
-        if (TextUtils.isEmpty(ServiceName)) {
-            return false;
-        }
-        ActivityManager myManager = (ActivityManager) context
-                .getSystemService(Context.ACTIVITY_SERVICE);
-        ArrayList<ActivityManager.RunningServiceInfo> runningService = (ArrayList<ActivityManager.RunningServiceInfo>) myManager
-                .getRunningServices(30);
-        for (int i = 0; i < runningService.size(); i++) {
-            if (runningService.get(i).service.getClassName().toString()
-                    .equals(ServiceName)) {
-                return true;
+    private void showMute(Response<CallStatus> response) {
+        if (response.isSuccessful()) {
+            CallStatus closeCall = response.body();
+            if (closeCall != null) {
+                String status = closeCall.getStatus();
+                Log.i("--==>>", status);
+                if (status.equals("success")) {
+                    Log.i("--==>>", "更改状态提交成功");
+                    Toast.makeText(getApplicationContext(), "设置成功", Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(getApplicationContext(), "设置失败", Toast.LENGTH_SHORT).show();
+                }
+            } else {
+                Log.i("--==>>", "未知错误");
             }
         }
-        return false;
     }
+
 }

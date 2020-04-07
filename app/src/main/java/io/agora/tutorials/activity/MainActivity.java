@@ -99,28 +99,40 @@ public class MainActivity extends BasePermissionActivity {
     }
 
     private void init() {
-        //tttt
-
-        //获取勿扰模式是否开启
-        SharedPreferences sharedPreferences = getSharedPreferences("login", Context.MODE_PRIVATE);
-        boolean flag = sharedPreferences.getBoolean("mute", false);
+//        //获取勿扰模式是否开启
+//        SharedPreferences sharedPreferences = getSharedPreferences("login", Context.MODE_PRIVATE);
+//        boolean flag = sharedPreferences.getBoolean("mute", false);
+//        //获取服务运行状态
+//        boolean serviceRunning = isServiceRunning(this, "io.agora.tutorials.service.CalledService");
+//        //判断当前勿扰模式是否开着
+//        if (flag && serviceRunning) {
+//            //勿扰模式开着如果服务在运行就关闭
+//            //关闭服务
+//            stopService(new Intent(this, CalledService.class));
+//        } else if (!flag && !serviceRunning) {
+//            //勿扰模式关着,如果服务关闭就开启
+//            //开启服务
+//            startService(new Intent(this, CalledService.class));
+//        }
+//        //因为上面可能会执行打开服务操作,所以需要第二次判断,是否真的打开了
+//        boolean serviceRunning2 = isServiceRunning(this, "io.agora.tutorials.service.CalledService");
+//        if (flag && !serviceRunning2) {
+//            showMute.setText(R.string.dnd_mode_open);
+//        } else if (!flag && serviceRunning2) {
+//            showMute.setText(R.string.wait_called);
+//        }
         //获取服务运行状态
         boolean serviceRunning = isServiceRunning(this, "io.agora.tutorials.service.CalledService");
-        //判断当前勿扰模式是否开着
-        if (flag && serviceRunning) {
+        if (!serviceRunning) {
             //勿扰模式开着如果服务在运行就关闭
             //关闭服务
-            stopService(new Intent(this, CalledService.class));
-        } else if (!flag && !serviceRunning) {
-            //勿扰模式关着,如果服务关闭就开启
-            //开启服务
             startService(new Intent(this, CalledService.class));
         }
         //因为上面可能会执行打开服务操作,所以需要第二次判断,是否真的打开了
         boolean serviceRunning2 = isServiceRunning(this, "io.agora.tutorials.service.CalledService");
-        if (flag && !serviceRunning2) {
+        if (!serviceRunning2) {
             showMute.setText(R.string.dnd_mode_open);
-        } else if (!flag && serviceRunning2) {
+        } else {
             showMute.setText(R.string.wait_called);
         }
     }
@@ -132,7 +144,7 @@ public class MainActivity extends BasePermissionActivity {
         super.onResume();
     }
 
-    @OnClick({R.id.ll_msg, R.id.ll_setting, R.id.ll_log_out, R.id.show_mute,R.id.id_show_text})
+    @OnClick({R.id.ll_msg, R.id.ll_setting, R.id.ll_log_out, R.id.show_mute, R.id.id_show_text})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.ll_msg:

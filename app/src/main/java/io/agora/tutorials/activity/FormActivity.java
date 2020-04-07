@@ -113,6 +113,8 @@ public class FormActivity extends AppCompatActivity {
             @Override
             public void onFailure(Call<ClientFormStatus> call, Throwable t) {
                 Log.i("--==>>", "查询用户填写form表单请求失败" + t.getMessage());
+                Toast.makeText(getApplicationContext(),"用户未提交预约",Toast.LENGTH_SHORT).show();
+                finish();
             }
         });
     }
@@ -236,7 +238,6 @@ public class FormActivity extends AppCompatActivity {
                         Log.i("--==>>", "未知错误");
                     }
                 }
-                ;
             }
 
             @Override

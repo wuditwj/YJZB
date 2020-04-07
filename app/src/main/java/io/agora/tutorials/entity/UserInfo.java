@@ -10,7 +10,7 @@ import android.arch.persistence.room.PrimaryKey;
 public class UserInfo {
     @PrimaryKey(autoGenerate = true)//主键是否自动增长，默认为false
     private int id;
-
+    private int user_id;
     private int admin_id;
     //昵称
     private String nickname;
@@ -23,13 +23,22 @@ public class UserInfo {
     //密码
     private String password;
 
-    public UserInfo(int admin_id,String nickname, String photo, int house_id, String mobile, String password) {
+    public UserInfo(int user_id,int admin_id,String nickname, String photo, int house_id, String mobile, String password) {
+        this.user_id=user_id;
         this.admin_id=admin_id;
         this.nickname = nickname;
         this.photo = photo;
         this.house_id = house_id;
         this.mobile = mobile;
         this.password = password;
+    }
+
+    public int getUser_id() {
+        return user_id;
+    }
+
+    public void setUser_id(int user_id) {
+        this.user_id = user_id;
     }
 
     public int getAdmin_id() {
