@@ -1,5 +1,7 @@
 package io.agora.tutorials.net;
 
+import android.util.Log;
+
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
@@ -16,7 +18,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class NetClient {
 
-    public static final String BASE_URL = "https://fc.zqtycn.com/Admin/Infor/";
+    public static final String BASE_URL = "https://fc.zqtycn.com/";
     private static NetClient mNeyClient;
     private final Retrofit retrofit;
     private RequestApi requestApi;
@@ -24,6 +26,13 @@ public class NetClient {
     private NetClient(){
         //创建一个日志拦截器
         HttpLoggingInterceptor interceptor=new HttpLoggingInterceptor();
+//        HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor(new HttpLoggingInterceptor.Logger() {
+//            @Override
+//            public void log(String message) {
+//                //打印retrofit日志
+//                Log.i("Retrofit--==>>","retrofitBack = "+message);
+//            }
+//        });
         interceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
         //创建一个OKHttpClient
         OkHttpClient okHttpClient = new OkHttpClient.Builder()

@@ -3,6 +3,7 @@ package io.agora.tutorials.activity;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -36,12 +37,22 @@ public class UserInformationActivity extends AppCompatActivity {
     }
 
     private void info() {
+        setSupportActionBar(userToolbar);
+        //设置是否有NvagitionIcon（返回图标）
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        //点击返回图标
+        userToolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
         UserInfo userInfo = MyApplication.getInstance().getUserInfo();
-        String head=userInfo.getPhoto();
+        String head = userInfo.getPhoto();
         Glide.with(this).load(head).into(userInfoHead);
-        String name=userInfo.getNickname();
+        String name = userInfo.getNickname();
         userInfoName.setText(name);
-        String mobile=userInfo.getMobile();
+        String mobile = userInfo.getMobile();
         userInfoMobile.setText(mobile);
     }
 }

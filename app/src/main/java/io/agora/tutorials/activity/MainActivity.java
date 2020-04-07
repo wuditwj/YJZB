@@ -132,7 +132,7 @@ public class MainActivity extends BasePermissionActivity {
         super.onResume();
     }
 
-    @OnClick({R.id.ll_msg, R.id.ll_setting, R.id.ll_log_out, R.id.show_mute})
+    @OnClick({R.id.ll_msg, R.id.ll_setting, R.id.ll_log_out, R.id.show_mute,R.id.id_show_text})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.ll_msg:
@@ -146,6 +146,9 @@ public class MainActivity extends BasePermissionActivity {
                 break;
             case R.id.show_mute:
                 startActivity(new Intent(this, CameraActivity.class));
+                break;
+            case R.id.id_show_text:
+                startActivity(new Intent(this, FormActivity.class));
                 break;
         }
     }

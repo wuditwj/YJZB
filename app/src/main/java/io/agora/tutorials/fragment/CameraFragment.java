@@ -1,6 +1,7 @@
 package io.agora.tutorials.fragment;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Point;
 import android.media.AudioFormat;
@@ -45,6 +46,7 @@ import io.agora.rtc.IRtcEngineEventHandler;
 import io.agora.rtc.RtcEngine;
 import io.agora.rtc.video.AgoraVideoFrame;
 import io.agora.rtc.video.VideoEncoderConfiguration;
+import io.agora.tutorials.activity.FormActivity;
 import io.agora.tutorials.application.MyApplication;
 import io.agora.tutorials.call.CallInServerCenter;
 import io.agora.tutorials.customizedvideosource.R;
@@ -88,7 +90,7 @@ public class CameraFragment extends BaseFragment implements View.OnClickListener
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Log.i("--==>>","进OnCreate");
+        Log.i("--==>>", "进OnCreate");
         Point point = new Point();
         getActivity().getWindowManager().getDefaultDisplay().getSize(point);
         mWidth = point.x;
@@ -97,11 +99,11 @@ public class CameraFragment extends BaseFragment implements View.OnClickListener
         LLVisionGlass3SDK.getInstance().registerConnectionListener(mConnectionStatusListener);
         try {
             if (LLVisionGlass3SDK.getInstance().isServiceConnected()) {
-                Log.i("--==>>","硬件连接");
+                Log.i("--==>>", "硬件连接");
                 List<IGlass3Device> glass3DeviceList = LLVisionGlass3SDK.getInstance()
                         .getGlass3DeviceList();
                 if (glass3DeviceList != null && glass3DeviceList.size() > 0) {
-                    Log.i("--==>>","驱动连接");
+                    Log.i("--==>>", "驱动连接");
                     mGlass3Device = glass3DeviceList.get(0);
                     mCameraClient = (ICameraClient) LLVisionGlass3SDK.getInstance().getGlass3Client(
                             IGlass3Device.Glass3DeviceClient.CAMERA);
@@ -124,7 +126,7 @@ public class CameraFragment extends BaseFragment implements View.OnClickListener
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle
             savedInstanceState) {
-        Log.i("--==>>","进OnCreateView");
+        Log.i("--==>>", "进OnCreateView");
         View rootView = inflater.inflate(R.layout.fragment_camera, container, false);
         mCameraView = rootView.findViewById(R.id.camera_view);
         rootView.findViewById(R.id.icon_close).setOnClickListener(this);
@@ -134,7 +136,7 @@ public class CameraFragment extends BaseFragment implements View.OnClickListener
 
         //打开摄像头
         if (mGlass3Device != null) {
-            Log.i("--==>>","mGlass3Device不空");
+            Log.i("--==>>", "mGlass3Device不空");
             try {
                 mICameraDevice = mCameraClient.openCamera(mGlass3Device, mCameraStatusListener);
                 if (mICameraDevice != null) {
@@ -147,7 +149,7 @@ public class CameraFragment extends BaseFragment implements View.OnClickListener
                 e.printStackTrace();
             }
         }
-        roomId=getRoomId(getActivity());
+        roomId = getRoomId(getActivity());
         //初始化Agora，创建 RtcEngine 对象
         initializeAgoraEngine();
         //打开视频模式，并设置本地视频属性
@@ -159,14 +161,14 @@ public class CameraFragment extends BaseFragment implements View.OnClickListener
         return rootView;
     }
 
-    private String getRoomId(Context context){
+    private String getRoomId(Context context) {
         //获取当前登录的手机号
         SharedPreferences sharedPreferences = context.getSharedPreferences("login", Context.MODE_PRIVATE);
         String mobile = sharedPreferences.getString("mobile", "");
         //获取用户信息
         UserInfo userByName = UserDatabase.getInstance(context).getUserDao().getUserByMobile(mobile);
         //拼接房间号
-        String roomId=userByName.getMobile()+userByName.getHouse_id();
+        String roomId = userByName.getMobile() + userByName.getHouse_id();
 //        String roomId="123";
         return roomId;
     }
@@ -225,16 +227,16 @@ public class CameraFragment extends BaseFragment implements View.OnClickListener
         //加入频道,如果不指定UID，Agroa将自动生成并分配一个UID
         mRtcEngine.joinChannel(null, roomId, "Extra Optional Data", 0);
         //开始录音
-        mRtcEngine.startAudioRecording(saveAudio(),AUDIO_RECORDING_QUALITY_HIGH);
+        mRtcEngine.startAudioRecording(saveAudio(), AUDIO_RECORDING_QUALITY_HIGH);
     }
 
-    private String saveAudio(){
+    private String saveAudio() {
 
-       String SDCard = MyApplication.getInstance().getFilePath();
-       //获取当前时间戳
+        String SDCard = MyApplication.getInstance().getFilePath();
+        //获取当前时间戳
         long timeMillis = System.currentTimeMillis();
         //拼接名字
-        String fileName=SDCard+"/audio_"+timeMillis+".WAV";
+        String fileName = SDCard + "/audio_" + timeMillis + ".WAV";
         return fileName;
     }
 
@@ -249,7 +251,7 @@ public class CameraFragment extends BaseFragment implements View.OnClickListener
 
         @Override
         public void onUserOffline(int uid, int reason) {
-            Log.i("--==>","用户断线");
+            Log.i("--==>", "用户断线");
             getActivity().finish();
         }
     };
@@ -262,7 +264,7 @@ public class CameraFragment extends BaseFragment implements View.OnClickListener
     private SurfaceCallback mSurfaceCallback = new SurfaceCallback() {
         @Override
         public void onSurfaceCreated(Surface surface) {
-            LogUtil.i(TAG, "onSurfaceCreated");
+//            LogUtil.i(TAG, "onSurfaceCreated");
             if (mICameraDevice != null) {
                 try {
                     mICameraDevice.addSurface(surface, true);
@@ -275,13 +277,13 @@ public class CameraFragment extends BaseFragment implements View.OnClickListener
 
         @Override
         public void onSurfaceChanged(Surface surface, int width, int height) {
-            LogUtil.i(TAG, "onSurfaceChanged");
+//            LogUtil.i(TAG, "onSurfaceChanged");
 
         }
 
         @Override
         public void onSurfaceDestroy(Surface surface) {
-            LogUtil.i(TAG, "onSurfaceDestroy");
+//            LogUtil.i(TAG, "onSurfaceDestroy");
             if (mICameraDevice != null) {
                 try {
                     if (mCameraView.getSurface() != null) {
@@ -320,11 +322,11 @@ public class CameraFragment extends BaseFragment implements View.OnClickListener
                     if (mCameraView.getSurface() != null) {
                         mICameraDevice.addSurface(mCameraView.getSurface(), false);
                         mICameraDevice.setFrameCallback(mIFrameCallback, PixelFormat.PIXEL_FORMAT_NV21);
-                    }else{
+                    } else {
                     }
                 } catch (CameraException e) {
                     e.printStackTrace();
-                    Log.i("--==>>",e.getMessage());
+                    Log.i("--==>>", e.getMessage());
                 }
             }
         }
@@ -372,7 +374,7 @@ public class CameraFragment extends BaseFragment implements View.OnClickListener
             vf.rotation = 90;
             //声网通过pushExternalVideoFrame将视频发送给SDK
             boolean result = mRtcEngine.pushExternalVideoFrame(vf);
-            Log.i("--==>>","推流"+result);
+//            Log.i("--==>>", "推流" + result);
         }
     };
 
@@ -385,7 +387,7 @@ public class CameraFragment extends BaseFragment implements View.OnClickListener
         if (mGlassDisplay == null) {
             mGlassDisplay = mLcdClient.getGlassDisplay(mGlass3Device);
         }
-        View view = LayoutInflater.from(getActivity()).inflate(R.layout .layout_glass_screen, null);
+        View view = LayoutInflater.from(getActivity()).inflate(R.layout.layout_glass_screen, null);
         mGlassDisplay.createCaptureScreen(getActivity(), view);
         //回音噪音消除
         mGlass3Device.setAudioEchoCancelation(true);
@@ -399,7 +401,7 @@ public class CameraFragment extends BaseFragment implements View.OnClickListener
         @Override
         public void onServiceConnected(List<IGlass3Device> glass3Devices) {
             ToastUtils.showLong(getActivity(), "onServiceConnected");
-            LogUtil.i(TAG, "onServiceConnected");
+//            LogUtil.i(TAG, "onServiceConnected");
             Log.i("--==>>", "服务连接");
         }
 
@@ -407,7 +409,7 @@ public class CameraFragment extends BaseFragment implements View.OnClickListener
         @Override
         public void onServiceDisconnected() {
             ToastUtils.showLong(getActivity(), "onServiceDisconnected");
-            LogUtil.i(TAG, "onServiceDisconnected");
+//            LogUtil.i(TAG, "onServiceDisconnected");
             Log.i("--==>>", "服务断开");
         }
 
@@ -415,7 +417,7 @@ public class CameraFragment extends BaseFragment implements View.OnClickListener
         @Override
         public void onDeviceConnect(IGlass3Device device) {
             ToastUtils.showLong(getActivity(), "onDeviceConnect");
-            LogUtil.i(TAG, "onDeviceConnect");
+//            LogUtil.i(TAG, "onDeviceConnect");
             Log.i("--==>>", "设备插入");
             //断开摄像头
             if (mICameraDevice != null) {
@@ -454,11 +456,11 @@ public class CameraFragment extends BaseFragment implements View.OnClickListener
             if (device != null && mGlass3Device != null) {
                 ToastUtils.showLong(getActivity(), "onDeviceDisconnect deviceId = " +
                         device.getDeviceId() + " mGlass3Device = " + mGlass3Device.getDeviceId());
-                LogUtil.i("CameraClient", "onDeviceDisconnect deviceId = " +
-                        device.getDeviceId() + " mGlass3Device = " + mGlass3Device.getDeviceId());
+//                LogUtil.i("CameraClient", "onDeviceDisconnect deviceId = " +
+//                        device.getDeviceId() + " mGlass3Device = " + mGlass3Device.getDeviceId());
             }
             if (mICameraDevice != null) {
-                LogUtil.i(TAG, "onDeviceDisconnect deviceId = " + mICameraDevice.isCameraOpened());
+//                LogUtil.i(TAG, "onDeviceDisconnect deviceId = " + mICameraDevice.isCameraOpened());
             }
             //停止眼镜端
             if (mGlassDisplay != null) {
@@ -476,17 +478,25 @@ public class CameraFragment extends BaseFragment implements View.OnClickListener
         @Override
         public void onError(int code, String msg) {
             ToastUtils.showLong(getActivity(), "onError");
-            LogUtil.i(TAG, "onError");
+//            LogUtil.i(TAG, "onError");
             Log.i("--==>>", "服务出错");
         }
     };
 
     @Override
     public void onDestroyView() {
-        Toast.makeText(getActivity(),"用户已离开通话",Toast.LENGTH_SHORT).show();
+        Toast.makeText(getActivity(), "用户已离开通话", Toast.LENGTH_SHORT).show();
         // 结束录音
         mRtcEngine.stopAudioRecording();
+        //离开当前频道
+        mRtcEngine.leaveChannel();
+        mRtcEngine = null;
         super.onDestroyView();
+    }
+
+    @Override
+    public synchronized void onDestroy() {
+        super.onDestroy();
         if (mICameraDevice != null) {
             mICameraDevice.release();
             mICameraDevice = null;
@@ -495,19 +505,12 @@ public class CameraFragment extends BaseFragment implements View.OnClickListener
             mGlassDisplay.stopCaptureScreen();
             mGlassDisplay = null;
         }
+        LLVisionGlass3SDK.getInstance().unRegisterConnectionListener(mConnectionStatusListener);
+        mGlass3Device = null;
         //停止通话
         new CallInServerCenter(getActivity()).closeCall();
         getActivity().finish();
-    }
-
-    @Override
-    public synchronized void onDestroy() {
-        super.onDestroy();
-        LLVisionGlass3SDK.getInstance().unRegisterConnectionListener(mConnectionStatusListener);
-        mGlass3Device = null;
-        //离开当前频道
-        mRtcEngine.leaveChannel();
-        mRtcEngine = null;
+        startActivity(new Intent(getActivity(), FormActivity.class));
         Log.i("--==>>", "资源释放完毕");
     }
 
