@@ -1,5 +1,6 @@
 package io.agora.tutorials.call;
 
+import android.app.Application;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -8,6 +9,7 @@ import android.util.Log;
 
 import io.agora.tutorials.activity.CalledActivity;
 import io.agora.tutorials.activity.CameraActivity;
+import io.agora.tutorials.application.MyApplication;
 import io.agora.tutorials.db.UserDatabase;
 import io.agora.tutorials.entity.CalledInfo;
 import io.agora.tutorials.entity.CallStatus;
@@ -82,9 +84,9 @@ public class CallInServerCenter {
                                 if (CalledActivity.calledActivity != null) {
                                     CalledActivity.calledActivity.finish();
                                 }
-//                                if (CameraActivity.cameraActivity != null) {
-//                                    CameraActivity.cameraActivity.finish();
-//                                }
+                                if (CameraActivity.cameraActivity != null) {
+                                    CameraActivity.cameraActivity.finish();
+                                }
                                 break;
                         }
                     } else {
@@ -111,13 +113,14 @@ public class CallInServerCenter {
                 if (response.isSuccessful()) {
                     ClientInfo clientInfo = response.body();
                     if (clientInfo != null) {
-                        Log.i(TAG, "用户昵称:" + clientInfo.getData().getNickname() + "\n用户头像:" + clientInfo.getData().getHeadimgurl());
+                        Log.i(TAG, clientInfo.toString());
+                        MyApplication.getInstance().setClientInfo(clientInfo);
                         Intent intent = new Intent(context, CalledActivity.class);
-                        Bundle myBundle = new Bundle();
-                        myBundle.putString("name", clientInfo.getData().getNickname());
-                        myBundle.putString("head", clientInfo.getData().getHeadimgurl());
-                        myBundle.putString("mobile", clientInfo.getData().getMobile());
-                        intent.putExtra("message", myBundle);
+//                        Bundle myBundle = new Bundle();
+//                        myBundle.putString("name", clientInfo.getData().getNickname());
+//                        myBundle.putString("head", clientInfo.getData().getHeadimgurl());
+//                        myBundle.putString("mobile", clientInfo.getData().getMobile());
+//                        intent.putExtra("message", myBundle);
                         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_EXCLUDE_FROM_RECENTS);
                         context.startActivity(intent);
                     } else {

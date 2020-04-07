@@ -15,6 +15,7 @@ import com.bumptech.glide.Glide;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import io.agora.tutorials.application.MyApplication;
 import io.agora.tutorials.call.CallInServerCenter;
 import io.agora.tutorials.customizedvideosource.R;
 import io.agora.tutorials.utils.BellUtils;
@@ -50,11 +51,13 @@ public class CalledActivity extends AppCompatActivity {
                 | WindowManager.LayoutParams.FLAG_TURN_SCREEN_ON);//点亮屏幕
         setContentView(R.layout.activity_called);
         ButterKnife.bind(this);
-        //获取页面传递过来的值
-        Intent intent = getIntent();
-        Bundle myBundle = intent.getBundleExtra("message");
-        userName = myBundle.getString("name");
-        userHead = myBundle.getString("head");
+//        获取页面传递过来的值
+//        Intent intent = getIntent();
+//        Bundle myBundle = intent.getBundleExtra("message");
+//        userName = myBundle.getString("name");
+//        userHead = myBundle.getString("head");
+        userName =MyApplication.getInstance().getClientInfo().getData().getNickname();
+        userHead =MyApplication.getInstance().getClientInfo().getData().getHeadimgurl();
         Log.i("--==>>",userHead);
         //加载头像
         Glide.with(this).load(userHead).into(clientHead);

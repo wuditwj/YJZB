@@ -8,8 +8,10 @@ import android.content.SharedPreferences;
 import android.os.Environment;
 
 import java.io.File;
+import java.sql.ClientInfoStatus;
 
 import io.agora.tutorials.db.UserDatabase;
+import io.agora.tutorials.entity.ClientInfo;
 import io.agora.tutorials.entity.UserInfo;
 import io.agora.tutorials.onepiexl.MyBroadcastReceiver;
 
@@ -17,6 +19,16 @@ public class MyApplication extends Application {
     private static MyApplication instance;
 
     private String filePath;
+
+    private ClientInfo clientInfo;
+
+    public ClientInfo getClientInfo() {
+        return clientInfo;
+    }
+
+    public void setClientInfo(ClientInfo clientInfo) {
+        this.clientInfo = clientInfo;
+    }
 
     public String getFilePath() {
         return filePath;
@@ -48,7 +60,6 @@ public class MyApplication extends Application {
             recordFileDirctory.mkdirs();
         }
         filePath=recordFileDirctory.getPath();
-
     }
 
     /**

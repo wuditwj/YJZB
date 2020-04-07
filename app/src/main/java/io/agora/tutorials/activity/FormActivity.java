@@ -21,6 +21,7 @@ import java.util.LinkedList;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import io.agora.tutorials.application.MyApplication;
 import io.agora.tutorials.customizedvideosource.R;
 import io.agora.tutorials.entity.CallStatus;
 import io.agora.tutorials.entity.ClientCommitInfo;
@@ -91,7 +92,10 @@ public class FormActivity extends AppCompatActivity {
      * 获取用户填写的form表单
      */
     private void getClientForm() {
-        NetClient.getInstance().getTreatrueApi().getClientCommitInfo(3, 18).enqueue(new Callback<ClientFormStatus>() {
+        int adminId=MyApplication.getInstance().getUserInfo().getAdmin_id();
+        int userId=MyApplication.getInstance().getClientInfo().getData().getUser_id();
+        Log.i("--==>>",adminId+"     "+userId);
+        NetClient.getInstance().getTreatrueApi().getClientCommitInfo(adminId,userId).enqueue(new Callback<ClientFormStatus>() {
             @Override
             public void onResponse(Call<ClientFormStatus> call, Response<ClientFormStatus> response) {
                 if (response.isSuccessful()) {
@@ -203,7 +207,12 @@ public class FormActivity extends AppCompatActivity {
 
     @OnClick(R.id.form_commit)
     public void onViewClicked() {
-        commitInfo.setUsername(formClientScreenName.getText().toString().trim());
+        String name=formClientScreenName.getText().toString().trim();
+        if(name.isEmpty()){
+            commitInfo.setUsername("空");
+        }else{
+            commitInfo.setUsername(name);
+        }
         commitInfo.setMobile(formClientMobile.getText().toString().trim());
         commitInfo.setType_name(formCarType.getText().toString().trim());
         commitInfo.setContents(formCause.getText().toString().trim());
