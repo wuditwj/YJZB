@@ -11,11 +11,9 @@
         android:layout_centerInParent="true" />
 
 
-    <io.agora.tutorials.utils.FontIconView
-        android:id="@+id/icon_close"
-        android:text="@string/hang_up"
-        android:textColor="#FF0000"
-        android:textSize="40dp"
+    <ImageView
+        android:id="@+id/iv_close"
+        android:src="@mipmap/hang_up"
         android:layout_centerHorizontal="true"
         android:layout_alignParentBottom="true"
         android:layout_marginBottom="80dp"

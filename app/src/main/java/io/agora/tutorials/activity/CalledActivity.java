@@ -3,15 +3,15 @@ package io.agora.tutorials.activity;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
-
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.bumptech.glide.Glide;
 
@@ -21,7 +21,7 @@ import io.agora.tutorials.application.MyApplication;
 import io.agora.tutorials.call.CallInServerCenter;
 import io.agora.tutorials.customizedvideosource.R;
 import io.agora.tutorials.utils.BellUtils;
-import io.agora.tutorials.utils.FontIconView;
+import io.agora.tutorials.utils.RoundAngleImageView;
 
 /**
  * 呼叫弹出页面
@@ -30,15 +30,17 @@ public class CalledActivity extends AppCompatActivity {
     public static CalledActivity calledActivity;
     //头像
     @BindView(R.id.client_head)
-    ImageView clientHead;
-    //挂断
-    @BindView(R.id.hang_up)
-    FontIconView hangUp;
-    //接听
-    @BindView(R.id.answer)
-    FontIconView answer;
+    RoundAngleImageView clientHead;
+    //昵称
     @BindView(R.id.tv_user_name)
     TextView tvUserName;
+    //挂断
+    @BindView(R.id.hang_up)
+    LinearLayout hangUp;
+    //接听
+    @BindView(R.id.answer)
+    LinearLayout answer;
+
     String userName;
     String userHead;
 
@@ -53,11 +55,6 @@ public class CalledActivity extends AppCompatActivity {
                 | WindowManager.LayoutParams.FLAG_TURN_SCREEN_ON);//点亮屏幕
         setContentView(R.layout.activity_called);
         ButterKnife.bind(this);
-//        获取页面传递过来的值
-//        Intent intent = getIntent();
-//        Bundle myBundle = intent.getBundleExtra("message");
-//        userName = myBundle.getString("name");
-//        userHead = myBundle.getString("head");
         userName = MyApplication.getInstance().getClientInfo().getData().getNickname();
         userHead = MyApplication.getInstance().getClientInfo().getData().getHeadimgurl();
         Log.i("--==>>", userHead);
@@ -73,6 +70,7 @@ public class CalledActivity extends AppCompatActivity {
 
     //触摸监听
     private void listener() {
+
         //挂断
         hangUp.setOnTouchListener(new View.OnTouchListener() {
             @Override
@@ -80,14 +78,12 @@ public class CalledActivity extends AppCompatActivity {
                 switch (event.getAction()) {
                     //按下
                     case MotionEvent.ACTION_DOWN:
-                        hangUp.setTextColor(Color.parseColor("#555555"));
                         break;
                     //移动
                     case MotionEvent.ACTION_MOVE:
                         break;
                     //抬起
                     case MotionEvent.ACTION_UP:
-                        hangUp.setTextColor(Color.parseColor("#FF0000"));
                         //关闭铃声
                         BellUtils.stopPlay();
                         //停止通话
@@ -107,15 +103,12 @@ public class CalledActivity extends AppCompatActivity {
                 switch (event.getAction()) {
                     //按下
                     case MotionEvent.ACTION_DOWN:
-                        answer.setTextColor(Color.parseColor("#555555"));
                         break;
                     //移动
                     case MotionEvent.ACTION_MOVE:
                         break;
                     //抬起
                     case MotionEvent.ACTION_UP:
-                        answer.setTextColor(Color.parseColor("#26FF00" +
-                                ""));
                         //关闭铃声
                         BellUtils.stopPlay();
                         //接通通话

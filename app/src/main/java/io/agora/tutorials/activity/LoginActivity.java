@@ -4,16 +4,21 @@ import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
-
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.util.Log;
-import android.widget.Button;
+import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.EditText;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -24,6 +29,7 @@ import io.agora.tutorials.entity.UserInfo;
 import io.agora.tutorials.net.NetClient;
 import io.agora.tutorials.utils.PermissionHelper;
 import io.agora.tutorials.utils.PermissionInterface;
+import io.agora.tutorials.utils.ScreenInfoUtils;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -38,7 +44,7 @@ public class LoginActivity extends AppCompatActivity implements PermissionInterf
     EditText etPwd;
     //登录按钮
     @BindView(R.id.bt_login)
-    Button btLogin;
+    RelativeLayout btLogin;
 
     private String userMobile;
     private String userPassword;

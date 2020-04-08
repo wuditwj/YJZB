@@ -88,10 +88,6 @@ public class CallInServerCenter {
                                     CameraActivity.cameraActivity.finish();
                                 }
                                 break;
-                            //员工确认接通
-                            case 4:
-                                Log.i(TAG, "正在连接...");
-                                break;
                         }
                     } else {
                         Log.i(TAG, "未知错误");

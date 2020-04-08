@@ -101,5 +101,4 @@ repositories {
     implementation 'com.tencent.liteav:LiteAVSDK_TRTC:latest.release'
     //下拉框
     implementation 'com.github.arcadefire:nice-spinner:1.3.4'
-
 }

@@ -1,15 +1,17 @@
 package io.agora.tutorials.activity;
 
 import android.os.Bundle;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import com.google.gson.Gson;
 
@@ -27,12 +29,12 @@ import io.agora.tutorials.entity.CallStatus;
 import io.agora.tutorials.entity.ClientCommitInfo;
 import io.agora.tutorials.entity.ClientFormStatus;
 import io.agora.tutorials.net.NetClient;
+import io.agora.tutorials.utils.StatusBarUtil;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
 public class FormActivity extends AppCompatActivity {
-
     @BindView(R.id.toolbar)
     Toolbar toolbar;
     //用户网名
@@ -41,27 +43,37 @@ public class FormActivity extends AppCompatActivity {
     //用户手机号
     @BindView(R.id.form_client_mobile)
     EditText formClientMobile;
-    //用户性别
-    @BindView(R.id.form_client_sex)
-    NiceSpinner formClientSex;
+    //用户性别 男
+    @BindView(R.id.form_rb_man)
+    RadioButton formRbMan;
+    //用户性别 女
+    @BindView(R.id.form_rb_woman)
+    RadioButton formRbWoman;
     //车型
     @BindView(R.id.form_car_type)
-    EditText formCarType;
+    NiceSpinner formCarType;
     //用户级别
     @BindView(R.id.form_client_level)
     NiceSpinner formClientLevel;
-    //是否愿意试驾
-    @BindView(R.id.form_test_drive)
-    NiceSpinner formTestDrive;
+    //是否愿意试驾 是
+    @BindView(R.id.form_rb_yes)
+    RadioButton formRbYes;
+    //是否愿意试驾 否
+    @BindView(R.id.form_rb_no)
+    RadioButton formRbNo;
     //原因
     @BindView(R.id.form_cause)
     EditText formCause;
-    //提交按钮
-    @BindView(R.id.form_commit)
-    Button formCommit;
     //原因框
     @BindView(R.id.layout_cause)
     LinearLayout layoutCause;
+    //提交按钮
+    @BindView(R.id.form_commit)
+    ImageView formCommit;
+    @BindView(R.id.form_sex_group)
+    RadioGroup formSexGroup;
+    @BindView(R.id.form_drive_group)
+    RadioGroup formDriveGroup;
 
     private ClientCommitInfo commitInfo;
 
@@ -74,6 +86,7 @@ public class FormActivity extends AppCompatActivity {
     }
 
     private void init() {
+        StatusBarUtil.setTransparent(this);
         setSupportActionBar(toolbar);
         //设置是否有NvagitionIcon（返回图标）
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -92,10 +105,10 @@ public class FormActivity extends AppCompatActivity {
      * 获取用户填写的form表单
      */
     private void getClientForm() {
-        int adminId=MyApplication.getInstance().getUserInfo().getAdmin_id();
-        int userId=MyApplication.getInstance().getClientInfo().getData().getUser_id();
-        Log.i("--==>>",adminId+"     "+userId);
-        NetClient.getInstance().getTreatrueApi().getClientCommitInfo(adminId,userId).enqueue(new Callback<ClientFormStatus>() {
+        int adminId = MyApplication.getInstance().getUserInfo().getAdmin_id();
+        int userId = MyApplication.getInstance().getClientInfo().getData().getUser_id();
+        Log.i("--==>>", adminId + "     " + userId);
+        NetClient.getInstance().getTreatrueApi().getClientCommitInfo(adminId, userId).enqueue(new Callback<ClientFormStatus>() {
             @Override
             public void onResponse(Call<ClientFormStatus> call, Response<ClientFormStatus> response) {
                 if (response.isSuccessful()) {
@@ -113,7 +126,7 @@ public class FormActivity extends AppCompatActivity {
             @Override
             public void onFailure(Call<ClientFormStatus> call, Throwable t) {
                 Log.i("--==>>", "查询用户填写form表单请求失败" + t.getMessage());
-                Toast.makeText(getApplicationContext(),"用户未提交预约",Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), "用户未提交预约", Toast.LENGTH_SHORT).show();
                 finish();
             }
         });
@@ -132,10 +145,10 @@ public class FormActivity extends AppCompatActivity {
         //性别
         fillInSex(clientCommitInfo.getSex());
         //车型
-        formCarType.setText(clientCommitInfo.getType_name());
+        fillInCarType(clientCommitInfo.getType_name());
         //客户级别
         fillInLevel(clientCommitInfo.getLevel());
-        //试驾
+//        //试驾
         fillInDrive(clientCommitInfo.getBy_car());
     }
 
@@ -145,14 +158,44 @@ public class FormActivity extends AppCompatActivity {
      * @return
      */
     private void fillInSex(int sex) {
-        final LinkedList<String> data = new LinkedList<>(Arrays.asList("男", "女"));
-        formClientSex.attachDataSource(data);
-        if (sex == 1 || sex == 2) {
-            formClientSex.setSelectedIndex(sex - 1);
-        } else {
-            formClientSex.setSelectedIndex(0);
+        switch (sex) {
+            case 1:
+                formRbMan.setChecked(true);
+                break;
+            case 2:
+                formRbWoman.setChecked(true);
+                break;
+            default:
+                formRbMan.setChecked(true);
+                break;
         }
-        commitInfo.setSex(formClientSex.getSelectedIndex() + 1);
+        formSexGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup radioGroup, int i) {
+                RadioButton RB = (RadioButton) findViewById(i);//获取被选择的单选按钮
+                if (RB.getText().equals("男")) {
+                    commitInfo.setSex(1);
+                } else {
+                    commitInfo.setSex(2);
+                }
+            }
+        });
+    }
+
+    /**
+     * 级别选择框
+     *
+     * @return
+     */
+    private void fillInCarType(String type) {
+        final LinkedList<String> data = new LinkedList<>(Arrays.asList("新楼兰", "全新奇骏", "全新途达", "全新劲客", "新轩逸·经典", "蓝鸟", "骐达TIIDA", "第14代轩逸", "第七代天籁"));
+        formCarType.attachDataSource(data);
+        if (type != null) {
+            formCarType.setText(type);
+        } else {
+            formCarType.setSelectedIndex(0);
+        }
+        commitInfo.setType_name(data.get(formCarType.getSelectedIndex()));
     }
 
     /**
@@ -177,35 +220,34 @@ public class FormActivity extends AppCompatActivity {
      * @return
      */
     private void fillInDrive(int flag) {
-        final LinkedList<String> data = new LinkedList<>(Arrays.asList("是", "否"));
-        formTestDrive.attachDataSource(data);
         switch (flag) {
-            case 0:
             case 1:
-                formTestDrive.setSelectedIndex(0);
+                formRbYes.setChecked(true);
                 layoutCause.setVisibility(View.GONE);
                 break;
             case 2:
-                formTestDrive.setSelectedIndex(1);
+                formRbNo.setChecked(true);
                 layoutCause.setVisibility(View.VISIBLE);
                 formCause.setText(commitInfo.getContents());
                 break;
+            default:
+                formRbYes.setChecked(true);
+                layoutCause.setVisibility(View.GONE);
+                break;
         }
-
-        formTestDrive.addOnItemClickListener(new AdapterView.OnItemClickListener() {
+        formDriveGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                switch (position) {
-                    case 0:
-                        layoutCause.setVisibility(View.GONE);
-                        break;
-                    case 1:
-                        layoutCause.setVisibility(View.VISIBLE);
-                        break;
+            public void onCheckedChanged(RadioGroup radioGroup, int i) {
+                RadioButton RB = (RadioButton) findViewById(i);//获取被选择的单选按钮
+                if (RB.getText().equals("是")) {
+                    commitInfo.setBy_car(1);
+                    layoutCause.setVisibility(View.GONE);
+                } else {
+                    commitInfo.setBy_car(2);
+                    layoutCause.setVisibility(View.VISIBLE);
                 }
             }
         });
-        commitInfo.setBy_car(formTestDrive.getSelectedIndex());
     }
 
     @OnClick(R.id.form_commit)

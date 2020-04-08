@@ -7,29 +7,27 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
-import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.os.Bundle;
-import androidx.annotation.NonNull;
-import androidx.constraintlayout.widget.ConstraintLayout;
-import androidx.core.app.NotificationCompat;
-import androidx.drawerlayout.widget.DrawerLayout;
-import androidx.appcompat.app.ActionBarDrawerToggle;
-import androidx.appcompat.widget.Toolbar;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBarDrawerToggle;
+import androidx.appcompat.widget.Toolbar;
+import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.drawerlayout.widget.DrawerLayout;
+
 import com.bumptech.glide.Glide;
-import com.llvision.glass3.library.boot.DeviceInfo;
-import com.llvision.glass3.library.boot.FirmwareInfo;
 import com.llvision.glass3.platform.ConnectionStatusListener;
 import com.llvision.glass3.platform.IGlass3Device;
 import com.llvision.glass3.platform.LLVisionGlass3SDK;
 import com.llvision.glass3.platform.base.BasePermissionActivity;
-import com.llvision.glxss.common.exception.BaseException;
 import com.llvision.glxss.common.utils.LogUtil;
 
 import java.util.ArrayList;
@@ -40,9 +38,14 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import io.agora.tutorials.application.MyApplication;
 import io.agora.tutorials.customizedvideosource.R;
+import io.agora.tutorials.entity.MuteInfo;
+import io.agora.tutorials.net.NetClient;
 import io.agora.tutorials.service.CalledService;
 import io.agora.tutorials.utils.CircleTransform;
 import io.agora.tutorials.utils.ScreenInfoUtils;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class MainActivity extends BasePermissionActivity {
 
@@ -58,19 +61,20 @@ public class MainActivity extends BasePermissionActivity {
     //设备未连接
     @BindView(R.id.id_show_text)
     TextView idShowText;
-    //显示设备信息
-    @BindView(R.id.id_showInfo_text)
-    TextView idShowInfoText;
     //头像
     @BindView(R.id.iv_head)
     ImageView ivHead;
     //勿扰状态显示
     @BindView(R.id.show_mute)
     TextView showMute;
+    //勿扰图标
+    @BindView(R.id.iv_mute)
+    ImageView ivMute;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON); //保持屏幕不息屏
         LogUtil.setDebug(true);
         LogUtil.setLogSaveLocal(true);
         //隐藏状态栏时，获取状态栏高度
@@ -93,6 +97,32 @@ public class MainActivity extends BasePermissionActivity {
     }
 
     private void init() {
+        //获取勿扰状态
+        NetClient.getInstance().getTreatrueApi().getMute(MyApplication.getInstance().getUserInfo().getUser_id()).enqueue(new Callback<MuteInfo>() {
+            @Override
+            public void onResponse(Call<MuteInfo> call, Response<MuteInfo> response) {
+                if (response.isSuccessful()) {
+                    MuteInfo muteInfo = response.body();
+                    if (muteInfo != null) {
+                        //1代表可接通,2代表勿扰
+                        if (muteInfo.getData().getRest().equals("2")) {
+                            ivMute.setImageResource(R.mipmap.call_off);
+                            showMute.setText(R.string.dnd_mode_open);
+                        } else {
+                            ivMute.setImageResource(R.mipmap.call_on);
+                            showMute.setText(R.string.wait_called);
+                        }
+                    } else {
+                        Log.i("--==>>", "未知错误");
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<MuteInfo> call, Throwable t) {
+                Log.i("--==>>", "查询勿扰状态请求失败" + t.getMessage());
+            }
+        });
         //获取服务运行状态
         boolean serviceRunning = isServiceRunning(this, "io.agora.tutorials.service.CalledService");
         if (!serviceRunning) {
@@ -195,7 +225,7 @@ public class MainActivity extends BasePermissionActivity {
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         final DrawerLayout drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
-
+        toolbar.setTitle("");
         //将ToolBar与ActionBar关联
         setSupportActionBar(toolbar);
         //另外openDrawerContentDescRes 打开图片   closeDrawerContentDescRes 关闭图片
@@ -287,25 +317,23 @@ public class MainActivity extends BasePermissionActivity {
 
                 @Override
                 public void onDeviceConnect(final IGlass3Device device) {
-                    idShowText.setTextColor(Color.GREEN);
                     idShowText.setText(R.string.device_connected);
-                    try {
-                        if (device != null) {
-                            //显示设备信息
-                            readDeviceInfor(device);
-                        }
-                    } catch (PackageManager.NameNotFoundException e) {
-                        e.printStackTrace();
-                    } catch (BaseException e) {
-                        e.printStackTrace();
-                    }
+//                    try {
+//                        if (device != null) {
+//                            //显示设备信息
+//                            readDeviceInfor(device);
+//                        }
+//                    } catch (PackageManager.NameNotFoundException e) {
+//                        e.printStackTrace();
+//                    } catch (BaseException e) {
+//                        e.printStackTrace();
+//                    }
                 }
 
                 @Override
                 public void onDeviceDisconnect(IGlass3Device device) {
-                    idShowText.setTextColor(Color.RED);
                     idShowText.setText(R.string.device_disconnect);
-                    idShowInfoText.setText("");
+//                    idShowInfoText.setText("");
                 }
 
                 @Override
@@ -316,40 +344,40 @@ public class MainActivity extends BasePermissionActivity {
         }
     }
 
-    /**
-     * 显示设备信息
-     *
-     * @param device
-     * @throws PackageManager .NameNotFoundException
-     * @throws BaseException
-     */
-    private void readDeviceInfor(IGlass3Device device) throws PackageManager
-            .NameNotFoundException, BaseException {
-        StringBuffer sb = new StringBuffer();
-        sb.append("软件版本号:" + getPackageManager().
-                getPackageInfo(getPackageName(), 0).versionName + "\n");
-        FirmwareInfo firmwareInfo = device.getFirmwareInfo();
-        if (firmwareInfo != null) {
-            sb.append("固件版本号:" + firmwareInfo.version + "\n");
-            sb.append("固件项目名称:" + firmwareInfo.projectName + "\n");
-        }
-
-        DeviceInfo mProductInfo = device.getDeviceInfo();
-        if (mProductInfo != null) {
-            sb.append("编码版本号:" + mProductInfo.getPlatformID() + "\n");
-            sb.append("产品ID:" + mProductInfo.getProductID() + "\n");
-            sb.append("厂商ID:" + mProductInfo.getFirmID() + "\n");
-            sb.append("主板序列号/BSN:" + mProductInfo.getBsnID() + "\n");
-            sb.append("整机序列号/PSN:" + mProductInfo.getPsnID() + "\n");
-            sb.append("BOMID:" + mProductInfo.getBomID() + "\n");
-            sb.append("ISP版本号:" + mProductInfo.getIspID() + "\n");
-            sb.append("子板固件:" + mProductInfo.getFirmwareID() + "\n");
-            sb.append("显示器的分辨率宽度:" + mProductInfo.getResolutionWidth() + "\n");
-            sb.append("显示器的分辨率高度:" + mProductInfo.getResolutionHeight() + "\n");
-            sb.append("GLXSS ID:" + mProductInfo.getGlxssId() + "\n");
-            sb.append("Software Version:" + mProductInfo.getSoftwareVersion() + "\n");
-        }
-        idShowInfoText.setText(sb.toString());
-    }
+//    /**
+//     * 显示设备信息
+//     *
+//     * @param device
+//     * @throws PackageManager .NameNotFoundException
+//     * @throws BaseException
+//     */
+//    private void readDeviceInfor(IGlass3Device device) throws PackageManager
+//            .NameNotFoundException, BaseException {
+//        StringBuffer sb = new StringBuffer();
+//        sb.append("软件版本号:" + getPackageManager().
+//                getPackageInfo(getPackageName(), 0).versionName + "\n");
+//        FirmwareInfo firmwareInfo = device.getFirmwareInfo();
+//        if (firmwareInfo != null) {
+//            sb.append("固件版本号:" + firmwareInfo.version + "\n");
+//            sb.append("固件项目名称:" + firmwareInfo.projectName + "\n");
+//        }
+//
+//        DeviceInfo mProductInfo = device.getDeviceInfo();
+//        if (mProductInfo != null) {
+//            sb.append("编码版本号:" + mProductInfo.getPlatformID() + "\n");
+//            sb.append("产品ID:" + mProductInfo.getProductID() + "\n");
+//            sb.append("厂商ID:" + mProductInfo.getFirmID() + "\n");
+//            sb.append("主板序列号/BSN:" + mProductInfo.getBsnID() + "\n");
+//            sb.append("整机序列号/PSN:" + mProductInfo.getPsnID() + "\n");
+//            sb.append("BOMID:" + mProductInfo.getBomID() + "\n");
+//            sb.append("ISP版本号:" + mProductInfo.getIspID() + "\n");
+//            sb.append("子板固件:" + mProductInfo.getFirmwareID() + "\n");
+//            sb.append("显示器的分辨率宽度:" + mProductInfo.getResolutionWidth() + "\n");
+//            sb.append("显示器的分辨率高度:" + mProductInfo.getResolutionHeight() + "\n");
+//            sb.append("GLXSS ID:" + mProductInfo.getGlxssId() + "\n");
+//            sb.append("Software Version:" + mProductInfo.getSoftwareVersion() + "\n");
+//        }
+//        idShowInfoText.setText(sb.toString());
+//    }
 
 }

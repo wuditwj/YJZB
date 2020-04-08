@@ -248,7 +248,7 @@ public class AgoraLocalVideoSource extends TextureSource {
 //                                size + " ts = " + timestampUs);
                     }
 
-                    // If don't have an output buffer, try to get one now
+                    // If don't have hang_up output buffer, try to get one now
                     if (outputBufferIndex == NO_BUFFER_INDEX) {
                         outputBufferIndex = mDecoder.dequeueOutputBuffer(outputBufferInfo, 0);
                     }

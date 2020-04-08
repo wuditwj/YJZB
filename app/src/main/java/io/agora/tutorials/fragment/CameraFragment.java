@@ -125,7 +125,7 @@ public class CameraFragment extends BaseFragment implements View.OnClickListener
         Log.i("--==>>", "进OnCreateView");
         View rootView = inflater.inflate(R.layout.fragment_camera, container, false);
         mCameraView = rootView.findViewById(R.id.camera_view);
-        rootView.findViewById(R.id.icon_close).setOnClickListener(this);
+        rootView.findViewById(R.id.iv_close).setOnClickListener(this);
         //添加、删除 Surface、设置预览框尺寸
         mCameraView.setSurfaceCallback(mSurfaceCallback);
         mCameraView.setAspectRatio(mWidth / (float) mHeight);
@@ -377,7 +377,7 @@ public class CameraFragment extends BaseFragment implements View.OnClickListener
             vf.rotation = 90;
             //声网通过pushExternalVideoFrame将视频发送给SDK
             boolean result = mRtcEngine.pushExternalVideoFrame(vf);
-//            Log.i("--==>>", "推流" + result);
+            Log.i("--==>>", "推流" + result);
         }
     };
 

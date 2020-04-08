@@ -8,57 +8,81 @@
     android:orientation="vertical"
     tools:context="io.agora.tutorials.activity.CalledActivity">
 
-    <RelativeLayout
-        android:layout_width="match_parent"
+
+    <io.agora.tutorials.utils.RoundAngleImageView
+        android:id="@+id/client_head"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="178dp"
+        android:scaleType="fitXY" />
+
+    <TextView
+        android:id="@+id/tv_user_name"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_weight="5">
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="22.2dp"
+        android:textColor="#ffa0a0a0"
+        android:textSize="24sp" />
 
-        <ImageView
-            android:id="@+id/client_head"
-            android:scaleType="fitXY"
-            android:layout_centerInParent="true"
-            android:layout_width="150dp"
-            android:layout_height="150dp"/>
-
-        <TextView
-            android:id="@+id/tv_user_name"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/client_head"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="20dp"
-            android:textColor="#FFFFFF"
-            android:textSize="50dp" />
-
-    </RelativeLayout>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="13.5dp"
+        android:text="@string/call_invite"
+        android:textColor="#ffefd8b3"
+        android:textSize="14sp" />
 
     <LinearLayout
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_weight="1"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="166.5dp"
         android:orientation="horizontal">
 
-        <io.agora.tutorials.utils.FontIconView
+        <LinearLayout
             android:id="@+id/hang_up"
+            android:orientation="vertical"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:text="@string/hang_up"
-            android:textColor="#FF0000"
-            android:textSize="80dp" />
+            android:layout_height="wrap_content">
 
-        <io.agora.tutorials.utils.FontIconView
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@mipmap/hang_up" />
+
+            <TextView
+                android:layout_gravity="center_horizontal"
+                android:textColor="#ffa0a0a0"
+                android:textSize="14sp"
+                android:text="@string/call_hang_up"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+
+        <LinearLayout
             android:id="@+id/answer"
+            android:layout_marginLeft="97.5dp"
+            android:orientation="vertical"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:text="@string/answer"
-            android:textColor="#26FF00"
-            android:textSize="80dp" />
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@mipmap/answer" />
+
+            <TextView
+                android:layout_gravity="center_horizontal"
+                android:textColor="#ffa0a0a0"
+                android:textSize="14sp"
+                android:text="@string/call_answer"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+
 
     </LinearLayout>
 
