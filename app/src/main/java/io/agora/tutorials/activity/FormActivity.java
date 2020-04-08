@@ -1,8 +1,8 @@
 package io.agora.tutorials.activity;
 
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
@@ -188,6 +188,7 @@ public class FormActivity extends AppCompatActivity {
             case 2:
                 formTestDrive.setSelectedIndex(1);
                 layoutCause.setVisibility(View.VISIBLE);
+                formCause.setText(commitInfo.getContents());
                 break;
         }
 
@@ -231,6 +232,7 @@ public class FormActivity extends AppCompatActivity {
                         if (status.equals("success")) {
                             Log.i("--==>>", "数据提交成功");
                             Toast.makeText(getApplicationContext(), "提交成功", Toast.LENGTH_SHORT).show();
+                            finish();
                         } else {
                             Toast.makeText(getApplicationContext(), "提交失败", Toast.LENGTH_SHORT).show();
                         }

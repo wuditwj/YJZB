@@ -1,10 +1,14 @@
 package io.agora.tutorials.activity;
 
+import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+
 import android.util.Log;
 import android.widget.Button;
 import android.widget.EditText;
@@ -18,11 +22,13 @@ import io.agora.tutorials.db.UserDatabase;
 import io.agora.tutorials.entity.LoginInfo;
 import io.agora.tutorials.entity.UserInfo;
 import io.agora.tutorials.net.NetClient;
+import io.agora.tutorials.utils.PermissionHelper;
+import io.agora.tutorials.utils.PermissionInterface;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class LoginActivity extends AppCompatActivity {
+public class LoginActivity extends AppCompatActivity implements PermissionInterface {
 
     //手机号
     @BindView(R.id.et_mobile)
@@ -37,13 +43,17 @@ public class LoginActivity extends AppCompatActivity {
     private String userMobile;
     private String userPassword;
     private String head;
+    //权限操作类
+    private PermissionHelper mPermissionHelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         ButterKnife.bind(this);
-        init();
+        //初始化并发起权限申请
+        mPermissionHelper = new PermissionHelper(this, this);
+        mPermissionHelper.requestPermissions();
     }
 
     private void init() {
@@ -132,8 +142,8 @@ public class LoginActivity extends AppCompatActivity {
     /**
      * 把用户数据添加进数据库
      */
-    private void insertUser(int user_id,int admin_id,String nickname, String photo, int house_id, String mobile, String password) {
-        UserInfo userInfo = new UserInfo(user_id,admin_id,nickname, photo, house_id, mobile, password);
+    private void insertUser(int user_id, int admin_id, String nickname, String photo, int house_id, String mobile, String password) {
+        UserInfo userInfo = new UserInfo(user_id, admin_id, nickname, photo, house_id, mobile, password);
         UserDatabase.getInstance(this).getUserDao().insert(userInfo);
     }
 
@@ -152,5 +162,57 @@ public class LoginActivity extends AppCompatActivity {
         finish();
     }
 
+    //************************************申请权限**************************************************
 
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        if (mPermissionHelper.requestPermissionsResult(requestCode, permissions, grantResults)) {
+            //权限请求结果，并已经处理了该回调
+            return;
+        }
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+    }
+
+    /**
+     * 设置权限请求requestCode，只有不跟onRequestPermissionsResult方法中的其他请求码冲突即可。
+     *
+     * @return
+     */
+    @Override
+    public int getPermissionsRequestCode() {
+        return 10000;
+    }
+
+    /**
+     * 设置该界面所需的全部权限
+     *
+     * @return
+     */
+    @Override
+    public String[] getPermissions() {
+        return new String[]{
+                Manifest.permission.READ_PHONE_STATE,
+                Manifest.permission.CAMERA,
+                Manifest.permission.READ_EXTERNAL_STORAGE,
+                Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                Manifest.permission.RECORD_AUDIO
+        };
+    }
+
+    /**
+     * 权限请求用户已经全部允许
+     */
+    @Override
+    public void requestPermissionsSuccess() {
+        init();
+    }
+
+    /**
+     * 权限请求不被用户允许。可以提示并退出或者提示权限的用途并重新发起权限申请。
+     */
+    @Override
+    public void requestPermissionsFail() {
+        finish();
+    }
 }

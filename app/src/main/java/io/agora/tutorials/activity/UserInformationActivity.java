@@ -1,8 +1,8 @@
 package io.agora.tutorials.activity;
 
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -13,9 +13,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import io.agora.tutorials.application.MyApplication;
 import io.agora.tutorials.customizedvideosource.R;
-import io.agora.tutorials.db.UserDatabase;
 import io.agora.tutorials.entity.UserInfo;
-import io.agora.tutorials.utils.CircleTransform;
 
 public class UserInformationActivity extends AppCompatActivity {
 

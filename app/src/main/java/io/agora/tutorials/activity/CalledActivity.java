@@ -3,7 +3,9 @@ package io.agora.tutorials.activity;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
+
+import androidx.appcompat.app.AppCompatActivity;
+
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
@@ -56,9 +58,9 @@ public class CalledActivity extends AppCompatActivity {
 //        Bundle myBundle = intent.getBundleExtra("message");
 //        userName = myBundle.getString("name");
 //        userHead = myBundle.getString("head");
-        userName =MyApplication.getInstance().getClientInfo().getData().getNickname();
-        userHead =MyApplication.getInstance().getClientInfo().getData().getHeadimgurl();
-        Log.i("--==>>",userHead);
+        userName = MyApplication.getInstance().getClientInfo().getData().getNickname();
+        userHead = MyApplication.getInstance().getClientInfo().getData().getHeadimgurl();
+        Log.i("--==>>", userHead);
         //加载头像
         Glide.with(this).load(userHead).into(clientHead);
         //显示用户名

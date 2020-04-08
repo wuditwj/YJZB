@@ -4,13 +4,9 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Point;
-import android.media.AudioFormat;
-import android.media.AudioManager;
-import android.media.AudioRecord;
-import android.media.MediaRecorder;
 import android.os.Bundle;
-import android.os.Environment;
-import android.support.annotation.Nullable;
+
+import androidx.annotation.Nullable;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Surface;
@@ -37,7 +33,6 @@ import com.llvision.glxss.common.ui.SurfaceCallback;
 import com.llvision.glxss.common.utils.LogUtil;
 import com.llvision.glxss.common.utils.ToastUtils;
 
-import java.io.File;
 import java.util.List;
 
 
@@ -112,7 +107,8 @@ public class CameraFragment extends BaseFragment implements View.OnClickListener
                     mGlassDisplay = mLcdClient.getGlassDisplay(mGlass3Device);
                 }
             } else {
-                LogUtil.e("服务尚未连接.");
+//                LogUtil.e("服务尚未连接.");
+                Log.i("--==>>","服务尚未连接");
             }
         } catch (GlassException e) {
             e.printStackTrace();
@@ -136,7 +132,6 @@ public class CameraFragment extends BaseFragment implements View.OnClickListener
 
         //打开摄像头
         if (mGlass3Device != null) {
-            Log.i("--==>>", "mGlass3Device不空");
             try {
                 mICameraDevice = mCameraClient.openCamera(mGlass3Device, mCameraStatusListener);
                 if (mICameraDevice != null) {
@@ -382,7 +377,7 @@ public class CameraFragment extends BaseFragment implements View.OnClickListener
             vf.rotation = 90;
             //声网通过pushExternalVideoFrame将视频发送给SDK
             boolean result = mRtcEngine.pushExternalVideoFrame(vf);
-            Log.i("--==>>", "推流" + result);
+//            Log.i("--==>>", "推流" + result);
         }
     };
 

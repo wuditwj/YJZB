@@ -1,20 +1,14 @@
 package io.agora.tutorials.activity;
 
-import android.app.ActivityManager;
-import android.content.Context;
-import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
-import android.text.TextUtils;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+
 import android.util.Log;
 import android.view.View;
 import android.widget.CompoundButton;
 import android.widget.Switch;
 import android.widget.Toast;
-
-import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -23,7 +17,6 @@ import io.agora.tutorials.customizedvideosource.R;
 import io.agora.tutorials.entity.CallStatus;
 import io.agora.tutorials.entity.MuteInfo;
 import io.agora.tutorials.net.NetClient;
-import io.agora.tutorials.service.CalledService;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;

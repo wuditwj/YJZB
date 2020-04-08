@@ -1,7 +1,7 @@
 package io.agora.tutorials.entity;
 
-import android.arch.persistence.room.Entity;
-import android.arch.persistence.room.PrimaryKey;
+import androidx.room.Entity;
+import androidx.room.PrimaryKey;
 
 /**
  * 存储在本地数据库的用户信息

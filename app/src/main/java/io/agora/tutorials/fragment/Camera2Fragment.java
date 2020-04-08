@@ -4,7 +4,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.graphics.Point;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
+import androidx.annotation.Nullable;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Surface;
@@ -36,7 +36,6 @@ import com.tencent.trtc.TRTCCloudListener;
 
 import java.util.List;
 
-import io.agora.rtc.video.AgoraVideoFrame;
 import io.agora.tutorials.application.MyApplication;
 import io.agora.tutorials.call.CallInServerCenter;
 import io.agora.tutorials.customizedvideosource.R;

@@ -16,8 +16,8 @@
 
     <uses-feature android:name="android.hardware.Camera" />
     <uses-feature android:name="android.hardware.camera.autofocus" />
-
-    <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="android.permission.WRITE_SETTINGS" /><!-- 响铃 -->
+    <uses-permission android:name="android.permission.VIBRATE" /><!-- 震动 -->
     <uses-permission android:name="android.permission.WAKE_LOCK" />
     <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE" /> <!-- 息屏显示 -->
@@ -46,12 +46,13 @@
         android:supportsRtl="true"
         android:theme="@style/MyAppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name="test.TestActivity"></activity>
+        <activity android:name="test.TestActivity"/>
         <activity android:name="io.agora.tutorials.activity.FormActivity" />
         <activity android:name="io.agora.tutorials.activity.UserInformationActivity" />
         <activity android:name="io.agora.tutorials.activity.SettingActivity" />
         <activity android:name="io.agora.tutorials.activity.MainActivity" />
-        <activity android:name="io.agora.tutorials.activity.CalledActivity" />
+        <activity
+            android:name="io.agora.tutorials.activity.CalledActivity"/>
         <activity
             android:name="io.agora.tutorials.activity.LoginActivity"
             android:screenOrientation="sensorPortrait"

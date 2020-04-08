@@ -2,9 +2,6 @@ package io.agora.tutorials.activity;
 
 import android.app.ActivityManager;
 import android.app.AlertDialog;
-import android.app.Notification;
-import android.app.NotificationChannel;
-import android.app.NotificationManager;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -12,16 +9,14 @@ import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
-import android.os.Build;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.constraint.ConstraintLayout;
-import android.support.v4.app.NotificationCompat;
-import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBarDrawerToggle;
-import android.support.v7.widget.Toolbar;
+import androidx.annotation.NonNull;
+import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.core.app.NotificationCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.appcompat.app.ActionBarDrawerToggle;
+import androidx.appcompat.widget.Toolbar;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -48,7 +43,6 @@ import io.agora.tutorials.customizedvideosource.R;
 import io.agora.tutorials.service.CalledService;
 import io.agora.tutorials.utils.CircleTransform;
 import io.agora.tutorials.utils.ScreenInfoUtils;
-import test.TestActivity;
 
 public class MainActivity extends BasePermissionActivity {
 
@@ -99,28 +93,6 @@ public class MainActivity extends BasePermissionActivity {
     }
 
     private void init() {
-//        //获取勿扰模式是否开启
-//        SharedPreferences sharedPreferences = getSharedPreferences("login", Context.MODE_PRIVATE);
-//        boolean flag = sharedPreferences.getBoolean("mute", false);
-//        //获取服务运行状态
-//        boolean serviceRunning = isServiceRunning(this, "io.agora.tutorials.service.CalledService");
-//        //判断当前勿扰模式是否开着
-//        if (flag && serviceRunning) {
-//            //勿扰模式开着如果服务在运行就关闭
-//            //关闭服务
-//            stopService(new Intent(this, CalledService.class));
-//        } else if (!flag && !serviceRunning) {
-//            //勿扰模式关着,如果服务关闭就开启
-//            //开启服务
-//            startService(new Intent(this, CalledService.class));
-//        }
-//        //因为上面可能会执行打开服务操作,所以需要第二次判断,是否真的打开了
-//        boolean serviceRunning2 = isServiceRunning(this, "io.agora.tutorials.service.CalledService");
-//        if (flag && !serviceRunning2) {
-//            showMute.setText(R.string.dnd_mode_open);
-//        } else if (!flag && serviceRunning2) {
-//            showMute.setText(R.string.wait_called);
-//        }
         //获取服务运行状态
         boolean serviceRunning = isServiceRunning(this, "io.agora.tutorials.service.CalledService");
         if (!serviceRunning) {
