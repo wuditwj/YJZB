@@ -20,10 +20,10 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.widget.Toolbar;
-import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.drawerlayout.widget.DrawerLayout;
 
 import com.bumptech.glide.Glide;
+import com.gyf.immersionbar.ImmersionBar;
 import com.llvision.glass3.platform.ConnectionStatusListener;
 import com.llvision.glass3.platform.IGlass3Device;
 import com.llvision.glass3.platform.LLVisionGlass3SDK;
@@ -42,7 +42,6 @@ import io.agora.tutorials.entity.MuteInfo;
 import io.agora.tutorials.net.NetClient;
 import io.agora.tutorials.service.CalledService;
 import io.agora.tutorials.utils.CircleTransform;
-import io.agora.tutorials.utils.ScreenInfoUtils;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -70,6 +69,9 @@ public class MainActivity extends BasePermissionActivity {
     //勿扰图标
     @BindView(R.id.iv_mute)
     ImageView ivMute;
+    //名字
+    @BindView(R.id.tv_uer_name)
+    TextView tvUerName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -77,16 +79,13 @@ public class MainActivity extends BasePermissionActivity {
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON); //保持屏幕不息屏
         LogUtil.setDebug(true);
         LogUtil.setLogSaveLocal(true);
-        //隐藏状态栏时，获取状态栏高度
-        int statusBarHeight = ScreenInfoUtils.getStatusBarHeight(this);
-        //隐藏状态栏
-        ScreenInfoUtils.fullScreen(this);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
         //侧滑栏
-        menu(statusBarHeight);
+        menu();
         String head = MyApplication.getInstance().getUserInfo().getPhoto();
         Glide.with(this).load(head).transform(new CircleTransform(this)).into(ivHead);
+        tvUerName.setText(MyApplication.getInstance().getUserInfo().getNickname());
 
     }
 
@@ -161,9 +160,6 @@ public class MainActivity extends BasePermissionActivity {
             case R.id.show_mute:
                 startActivity(new Intent(this, CameraActivity.class));
                 break;
-            case R.id.id_show_text:
-                startActivity(new Intent(this, FormActivity.class));
-                break;
         }
     }
 
@@ -216,12 +212,11 @@ public class MainActivity extends BasePermissionActivity {
     /**
      * 侧滑栏
      */
-    private void menu(int statusBarHeight) {
+    private void menu() {
         //初始化状态栏的高度
-        View statusbar = (View) findViewById(R.id.view_statusbar);
-        ConstraintLayout.LayoutParams params =
-                new ConstraintLayout.LayoutParams(ConstraintLayout.LayoutParams.MATCH_PARENT, statusBarHeight);
-        statusbar.setLayoutParams(params);
+        View statusbar = (View) findViewById(R.id.main_status_bar);
+        //沉浸式状态栏
+        ImmersionBar.with(this).statusBarView(statusbar).init();
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         final DrawerLayout drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);

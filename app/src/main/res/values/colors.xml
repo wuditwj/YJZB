@@ -4,7 +4,20 @@
     <color name="colorPrimaryDark">#38ACFF</color>
     <color name="colorAccent">#e6e6e6</color>
 
-    <color name="back">#352E2A</color>
 
     <color name="colorGray">#55888888</color>
+    <!--*****************************************************************************************-->
+    <color name="black">#ff000000</color>
+    <color name="white">#ffffffff</color>
+    <color name="call_text">#ffa0a0a0</color>
+    <color name="call_invite">#FFEFD8B3</color>
+    <color name="call_background">#ff362e2b</color>
+    <color name="main_device_disconnect">#ffa45c24</color>
+    <color name="main_toolbar_background">#352E2A</color>
+    <color name="main_show_mute">#FFEFD8B3</color>
+    <color name="form_title">#ff313131</color>
+    <color name="form_view">#ffeeeeee</color>
+    <color name="form_cause">#fff6f6f6</color>
+    <color name="login_view">#fff6f6f6</color>
+    <color name="login_texts">#ffb5b5b5</color>
 </resources>

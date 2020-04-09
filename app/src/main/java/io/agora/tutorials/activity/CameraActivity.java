@@ -26,7 +26,6 @@ public class CameraActivity extends AppCompatActivity {
                 | WindowManager.LayoutParams.FLAG_TURN_SCREEN_ON);//点亮屏幕
         //全屏显示
         requestWindowFeature(Window.FEATURE_NO_TITLE);
-        getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
         setContentView(R.layout.activity_camera);
         //关闭响铃页面
         if(CalledActivity.calledActivity!=null){

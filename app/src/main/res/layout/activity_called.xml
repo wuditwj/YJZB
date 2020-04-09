@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#636363"
+    android:background="@color/call_background"
     android:orientation="vertical"
     tools:context="io.agora.tutorials.activity.CalledActivity">
 
@@ -23,8 +23,8 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="22.2dp"
-        android:textColor="#ffa0a0a0"
-        android:textSize="24sp" />
+        android:textColor="@color/call_text"
+        android:textSize="@dimen/called_nick_name" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -32,8 +32,8 @@
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="13.5dp"
         android:text="@string/call_invite"
-        android:textColor="#ffefd8b3"
-        android:textSize="14sp" />
+        android:textColor="@color/call_invite"
+        android:textSize="@dimen/called_invite" />
 
     <LinearLayout
         android:layout_width="wrap_content"
@@ -55,8 +55,9 @@
 
             <TextView
                 android:layout_gravity="center_horizontal"
-                android:textColor="#ffa0a0a0"
-                android:textSize="14sp"
+                android:textColor="@color/call_text"
+                android:textSize="@dimen/called_invite"
+                android:layout_marginTop="24dp"
                 android:text="@string/call_hang_up"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
@@ -76,8 +77,9 @@
 
             <TextView
                 android:layout_gravity="center_horizontal"
-                android:textColor="#ffa0a0a0"
-                android:textSize="14sp"
+                android:textColor="@color/call_text"
+                android:textSize="@dimen/called_invite"
+                android:layout_marginTop="24dp"
                 android:text="@string/call_answer"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />

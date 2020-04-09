@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#F6F6F6"
+    android:background="@color/form_cause"
     tools:context="io.agora.tutorials.activity.FormActivity"
     android:paddingBottom="19dp">
 
@@ -16,21 +16,34 @@
         android:orientation="vertical">
 
         <ImageView
-
+            android:scaleType="fitXY"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:src="@mipmap/form_back" />
-
+        <View
+            android:id="@+id/form_status_bar"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:background="@color/white"/>
         <!--标题栏样式一-->
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar"
+            android:layout_below="@+id/form_status_bar"
             android:layout_width="match_parent"
             android:layout_height="?actionBarSize"
-            android:background="@android:color/white"
-            app:subtitleTextColor="@android:color/white"
-            app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
-            app:title="@string/form_title"
-            app:titleTextColor="@android:color/background_dark" />
+            android:background="@color/white"
+            app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:layout_gravity="center"
+                android:text="@string/form_title"
+                android:textColor="@color/form_title"
+                android:textSize="@dimen/form_title"
+                android:textStyle="bold" />
+        </androidx.appcompat.widget.Toolbar>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -39,7 +52,7 @@
             android:layout_marginTop="147dp"
             android:layout_marginRight="16dp"
             android:layout_marginBottom="19dp"
-            android:background="#ffffff"
+            android:background="@drawable/form_texts_select"
             android:orientation="vertical"
             android:paddingBottom="14.5dp">
 
@@ -55,8 +68,8 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="31dp"
                     android:text="@string/form_client_screen_name"
-                    android:textColor="#ff313131"
-                    android:textSize="14sp" />
+                    android:textColor="@color/form_title"
+                    android:textSize="@dimen/form_texts" />
 
                 <EditText
                     android:id="@+id/form_client_screen_name"
@@ -65,8 +78,8 @@
                     android:layout_marginLeft="24dp"
                     android:layout_marginTop="31dp"
                     android:background="@null"
-                    android:textColor="#ff000000"
-                    android:textSize="14sp" />
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/form_texts" />
 
             </LinearLayout>
 
@@ -75,7 +88,7 @@
                 android:layout_height="0.5dp"
                 android:layout_marginLeft="90dp"
                 android:layout_marginTop="12dp"
-                android:background="#ffeeeeee" />
+                android:background="@color/form_view" />
 
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -88,8 +101,8 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="20dp"
                     android:text="@string/form_client_mobile"
-                    android:textColor="#ff313131"
-                    android:textSize="14sp" />
+                    android:textColor="@color/form_title"
+                    android:textSize="@dimen/form_texts" />
 
                 <EditText
                     android:id="@+id/form_client_mobile"
@@ -98,8 +111,8 @@
                     android:layout_marginLeft="24dp"
                     android:layout_marginTop="20dp"
                     android:background="@null"
-                    android:textColor="#ff313131"
-                    android:textSize="14sp" />
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/form_texts" />
             </LinearLayout>
 
             <View
@@ -107,7 +120,7 @@
                 android:layout_height="0.5dp"
                 android:layout_marginLeft="21.5dp"
                 android:layout_marginTop="12dp"
-                android:background="#ffeeeeee" />
+                android:background="@color/form_view" />
 
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -120,8 +133,8 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="20dp"
                     android:text="@string/form_client_sex"
-                    android:textColor="#ff313131"
-                    android:textSize="14sp" />
+                    android:textColor="@color/form_title"
+                    android:textSize="@dimen/form_texts" />
 
                 <RadioGroup
                     android:id="@+id/form_sex_group"
@@ -135,23 +148,29 @@
                         android:id="@+id/form_rb_man"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="18dp"
+                        android:layout_marginTop="20dp"
                         android:checked="true"
                         android:gravity="center"
-                        android:text="男"
-                        android:textColor="#313131"
-                        android:textSize="14sp"/>
+                        android:text="@string/form_man"
+                        android:textColor="@color/form_title"
+                        android:drawablePadding="8dp"
+                        android:textSize="@dimen/form_texts"
+                        android:button="@null"
+                        android:drawableLeft="@drawable/form_radio_select"/>
 
                     <RadioButton
                         android:id="@+id/form_rb_woman"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="25dp"
-                        android:layout_marginTop="18dp"
+                        android:layout_marginTop="20dp"
                         android:gravity="center"
-                        android:text="女"
-                        android:textColor="#313131"
-                        android:textSize="14sp"/>
+                        android:text="@string/form_woman"
+                        android:textColor="@color/form_title"
+                        android:drawablePadding="8dp"
+                        android:textSize="@dimen/form_texts"
+                        android:button="@null"
+                        android:drawableLeft="@drawable/form_radio_select"/>
 
                 </RadioGroup>
 
@@ -162,7 +181,7 @@
                 android:layout_height="0.5dp"
                 android:layout_marginLeft="21.5dp"
                 android:layout_marginTop="12dp"
-                android:background="#ffeeeeee" />
+                android:background="@color/form_view" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -176,15 +195,15 @@
                     android:layout_marginTop="10dp"
                     android:layout_weight="1"
                     android:text="@string/form_car_type"
-                    android:textColor="#ff313131"
-                    android:textSize="14sp" />
+                    android:textColor="@color/form_title"
+                    android:textSize="@dimen/form_texts" />
 
                 <org.angmarch.views.NiceSpinner
                     android:id="@+id/form_car_type"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textColor="#000000"
-                    app:textTint="#000000" />
+                    android:textColor="@color/black"
+                    app:textTint="@color/black" />
 
             </LinearLayout>
 
@@ -193,7 +212,7 @@
                 android:layout_height="0.5dp"
                 android:layout_marginLeft="21.5dp"
                 android:layout_marginTop="12dp"
-                android:background="#ffeeeeee" />
+                android:background="@color/form_view" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -207,15 +226,15 @@
                     android:layout_marginTop="10dp"
                     android:layout_weight="1"
                     android:text="@string/form_client_level"
-                    android:textColor="#ff313131"
-                    android:textSize="14sp" />
+                    android:textColor="@color/form_title"
+                    android:textSize="@dimen/form_texts" />
 
                 <org.angmarch.views.NiceSpinner
                     android:id="@+id/form_client_level"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textColor="#000000"
-                    app:textTint="#000000" />
+                    android:textColor="@color/black"
+                    app:textTint="@color/black" />
 
             </LinearLayout>
 
@@ -224,7 +243,7 @@
                 android:layout_height="0.5dp"
                 android:layout_marginLeft="21.5dp"
                 android:layout_marginTop="12dp"
-                android:background="#ffeeeeee" />
+                android:background="@color/form_view" />
 
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -237,8 +256,8 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="20dp"
                     android:text="@string/form_test_drive"
-                    android:textColor="#ff313131"
-                    android:textSize="14sp" />
+                    android:textColor="@color/form_title"
+                    android:textSize="@dimen/form_texts" />
 
                 <RadioGroup
                     android:id="@+id/form_drive_group"
@@ -252,23 +271,29 @@
                         android:id="@+id/form_rb_yes"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="18dp"
+                        android:layout_marginTop="20dp"
                         android:checked="true"
                         android:gravity="center"
-                        android:text="是"
-                        android:textColor="#313131"
-                        android:textSize="14sp" />
+                        android:text="@string/form_yes"
+                        android:drawablePadding="8dp"
+                        android:textColor="@color/form_title"
+                        android:textSize="@dimen/form_texts"
+                        android:button="@null"
+                        android:drawableLeft="@drawable/form_radio_select"/>
 
                     <RadioButton
                         android:id="@+id/form_rb_no"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="25dp"
-                        android:layout_marginTop="18dp"
+                        android:layout_marginTop="20dp"
                         android:gravity="center"
-                        android:text="否"
-                        android:textColor="#313131"
-                        android:textSize="14sp" />
+                        android:text="@string/form_no"
+                        android:drawablePadding="8dp"
+                        android:textColor="@color/form_title"
+                        android:textSize="@dimen/form_texts"
+                        android:button="@null"
+                        android:drawableLeft="@drawable/form_radio_select"/>
 
                 </RadioGroup>
 
@@ -279,7 +304,7 @@
                 android:layout_height="0.5dp"
                 android:layout_marginLeft="21.5dp"
                 android:layout_marginTop="12dp"
-                android:background="#ffeeeeee" />
+                android:background="@color/form_view" />
 
             <LinearLayout
                 android:id="@+id/layout_cause"
@@ -293,27 +318,21 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="20dp"
                     android:text="@string/form_cause"
-                    android:textColor="#ff313131"
-                    android:textSize="14sp" />
+                    android:textColor="@color/form_title"
+                    android:textSize="@dimen/form_texts" />
 
-                <EditText
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="24dp"
-                    android:layout_marginTop="20dp"
-                    android:background="@null"
-                    android:textColor="#ff313131"
-                    android:textSize="14sp" />
 
                 <EditText
                     android:id="@+id/form_cause"
                     android:layout_width="225dp"
                     android:layout_height="100dp"
-                    android:layout_marginLeft="2dp"
+                    android:layout_marginLeft="12dp"
                     android:layout_marginTop="20dp"
                     android:background="@drawable/edit_background"
                     android:gravity="top"
-                    android:minLines="5" />
+                    android:minLines="5"
+                    android:textColor="@color/form_title"
+                    android:textSize="@dimen/form_texts"/>
             </LinearLayout>
 
 
@@ -334,8 +353,8 @@
                     android:layout_height="wrap_content"
                     android:layout_centerInParent="true"
                     android:text="@string/form_commit"
-                    android:textColor="#ffa45c24"
-                    android:textSize="17sp" />
+                    android:textColor="@color/main_device_disconnect"
+                    android:textSize="@dimen/form_commit" />
 
             </RelativeLayout>
 

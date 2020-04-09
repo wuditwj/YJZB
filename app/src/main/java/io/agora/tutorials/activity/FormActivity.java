@@ -14,6 +14,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import com.google.gson.Gson;
+import com.gyf.immersionbar.ImmersionBar;
 
 import org.angmarch.views.NiceSpinner;
 
@@ -29,7 +30,6 @@ import io.agora.tutorials.entity.CallStatus;
 import io.agora.tutorials.entity.ClientCommitInfo;
 import io.agora.tutorials.entity.ClientFormStatus;
 import io.agora.tutorials.net.NetClient;
-import io.agora.tutorials.utils.StatusBarUtil;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -70,8 +70,10 @@ public class FormActivity extends AppCompatActivity {
     //提交按钮
     @BindView(R.id.form_commit)
     ImageView formCommit;
+    //性别
     @BindView(R.id.form_sex_group)
     RadioGroup formSexGroup;
+    //试驾
     @BindView(R.id.form_drive_group)
     RadioGroup formDriveGroup;
 
@@ -81,12 +83,16 @@ public class FormActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_form);
+        //初始化状态栏的高度
+        View statusbar = (View) findViewById(R.id.form_status_bar);
+        //沉浸式状态栏
+        ImmersionBar.with(this).statusBarView(statusbar).statusBarDarkFont(true, 0.2f).init();
         ButterKnife.bind(this);
         init();
     }
 
     private void init() {
-        StatusBarUtil.setTransparent(this);
+        toolbar.setTitle("");
         setSupportActionBar(toolbar);
         //设置是否有NvagitionIcon（返回图标）
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -252,10 +258,10 @@ public class FormActivity extends AppCompatActivity {
 
     @OnClick(R.id.form_commit)
     public void onViewClicked() {
-        String name=formClientScreenName.getText().toString().trim();
-        if(name.isEmpty()){
+        String name = formClientScreenName.getText().toString().trim();
+        if (name.isEmpty()) {
             commitInfo.setUsername("空");
-        }else{
+        } else {
             commitInfo.setUsername(name);
         }
         commitInfo.setMobile(formClientMobile.getText().toString().trim());

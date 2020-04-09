@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -14,6 +15,7 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.bumptech.glide.Glide;
+import com.gyf.immersionbar.ImmersionBar;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -53,6 +55,7 @@ public class CalledActivity extends AppCompatActivity {
                 | WindowManager.LayoutParams.FLAG_DISMISS_KEYGUARD //解锁
                 | WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON //保持屏幕不息屏
                 | WindowManager.LayoutParams.FLAG_TURN_SCREEN_ON);//点亮屏幕
+        ImmersionBar.with(this).init();
         setContentView(R.layout.activity_called);
         ButterKnife.bind(this);
         userName = MyApplication.getInstance().getClientInfo().getData().getNickname();

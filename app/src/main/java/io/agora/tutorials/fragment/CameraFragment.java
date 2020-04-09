@@ -374,10 +374,10 @@ public class CameraFragment extends BaseFragment implements View.OnClickListener
             vf.height = 720;
             vf.syncMode = true;
             vf.buf = frame;
-            vf.rotation = 90;
+            vf.rotation = 270;
             //声网通过pushExternalVideoFrame将视频发送给SDK
             boolean result = mRtcEngine.pushExternalVideoFrame(vf);
-            Log.i("--==>>", "推流" + result);
+//            Log.i("--==>>", "推流" + result);
         }
     };
 

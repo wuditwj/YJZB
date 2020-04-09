@@ -18,64 +18,48 @@
             android:layout_height="match_parent"
             android:background="@mipmap/background">
 
-            <!--    标题栏    -->
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/con_layout"
+            <View
+                android:id="@+id/main_status_bar"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="#ffffff">
+                android:layout_height="0dp" />
 
-                <!--模拟状态栏占位-->
-                <View
-                    android:id="@+id/view_statusbar"
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:background="@color/back"
-                    android:orientation="horizontal"
-                    app:layout_constraintTop_toTopOf="parent" />
-                <!--标题栏样式一-->
-                <androidx.appcompat.widget.Toolbar
-                    android:id="@+id/toolbar"
-                    android:layout_width="match_parent"
-                    android:layout_height="?actionBarSize"
-                    android:background="@color/back"
-                    app:layout_constraintTop_toBottomOf="@+id/view_statusbar"
-                    app:subtitleTextColor="@android:color/white"
-                    app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
-                    />
-
-            </androidx.constraintlayout.widget.ConstraintLayout>
-
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?actionBarSize"
+                android:layout_below="@+id/main_status_bar"
+                android:background="@color/main_toolbar_background"
+                app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar" />
 
             <TextView
                 android:id="@+id/id_show_text"
-                android:layout_below="@id/con_layout"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="125.5dp"
+                android:layout_below="@id/toolbar"
                 android:layout_centerHorizontal="true"
-                android:textColor="#ffa45c24"
+                android:layout_marginTop="125.5dp"
                 android:text="@string/device_disconnect"
-                android:textSize="14sp" />
+                android:textColor="@color/main_device_disconnect"
+                android:textSize="@dimen/form_texts" />
 
             <ImageView
                 android:id="@+id/iv_mute"
-                android:layout_below="@+id/id_show_text"
-                android:src="@mipmap/call_on"
-                android:layout_marginTop="26dp"
-                android:layout_centerHorizontal="true"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/id_show_text"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="26dp"
+                android:src="@mipmap/call_on" />
 
             <TextView
                 android:id="@+id/show_mute"
-                android:layout_below="@id/iv_mute"
-                android:layout_marginTop="29dp"
-                android:textSize="18sp"
-                android:textColor="#FFEFD8B3"
-                android:layout_centerHorizontal="true"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content"
+                android:layout_below="@id/iv_mute"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="29dp"
+                android:textColor="@color/main_show_mute"
+                android:textSize="@dimen/form_title" />
 
         </RelativeLayout>
     </FrameLayout>

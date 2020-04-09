@@ -2,13 +2,8 @@
 <layer-list xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item>
-        <shape xmlns:android="http://schemas.android.com/apk/res/android"
-            android:shape="rectangle">
-            <solid android:color="#F6F6F6" />
-            <corners android:radius="3dip" />
-            <stroke
-                android:width="0.5px"
-                android:color="#505050" />
+        <shape android:shape="rectangle">
+            <solid android:color="@color/form_cause" />
             <corners
                 android:bottomLeftRadius="4dp"
                 android:bottomRightRadius="4dp"
