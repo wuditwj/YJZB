@@ -206,6 +206,7 @@ public class MainActivity extends BasePermissionActivity {
         SharedPreferences.Editor editor = sharedPreferences.edit();
         //修改已登录状态
         editor.putBoolean("loginState", false);
+        editor.remove("mobile");
         editor.commit();
         //关闭服务
         stopService(new Intent(this, CalledService.class));

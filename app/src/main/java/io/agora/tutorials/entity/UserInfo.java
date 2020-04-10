@@ -3,6 +3,8 @@ package io.agora.tutorials.entity;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
+import java.util.Objects;
+
 /**
  * 存储在本地数据库的用户信息
  */
@@ -23,9 +25,9 @@ public class UserInfo {
     //密码
     private String password;
 
-    public UserInfo(int user_id,int admin_id,String nickname, String photo, int house_id, String mobile, String password) {
-        this.user_id=user_id;
-        this.admin_id=admin_id;
+    public UserInfo(int user_id, int admin_id, String nickname, String photo, int house_id, String mobile, String password) {
+        this.user_id = user_id;
+        this.admin_id = admin_id;
         this.nickname = nickname;
         this.photo = photo;
         this.house_id = house_id;
@@ -48,6 +50,7 @@ public class UserInfo {
     public void setAdmin_id(int admin_id) {
         this.admin_id = admin_id;
     }
+
     public int getId() {
         return id;
     }
@@ -94,5 +97,38 @@ public class UserInfo {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        UserInfo userInfo = (UserInfo) o;
+        return user_id == userInfo.getUser_id() && admin_id == getAdmin_id() && house_id == userInfo.getHouse_id() &&
+                nickname.equals(userInfo.getNickname()) && photo.equals(userInfo.getPhoto()) && mobile.equals(userInfo.getMobile()) && password.equals(userInfo.getPassword());
+    }
+
+    public void setInfo(UserInfo info) {
+        user_id = info.getUser_id();
+        admin_id = info.getAdmin_id();
+        house_id = info.getHouse_id();
+        nickname = info.getNickname();
+        photo = info.getPhoto();
+        mobile = info.getMobile();
+        password = info.getPassword();
+    }
+
+    @Override
+    public String toString() {
+        return "UserInfo{" +
+                "id=" + id +
+                ", user_id=" + user_id +
+                ", admin_id=" + admin_id +
+                ", nickname='" + nickname + '\'' +
+                ", photo='" + photo + '\'' +
+                ", house_id=" + house_id +
+                ", mobile='" + mobile + '\'' +
+                ", password='" + password + '\'' +
+                '}';
     }
 }

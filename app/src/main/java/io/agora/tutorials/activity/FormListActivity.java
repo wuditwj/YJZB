@@ -23,9 +23,9 @@ public class FormListActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_form_list);
-        Log.i("--==>>",MyApplication.getInstance().getUserInfo().getId()+"");
+        Log.i("--==>>",MyApplication.getInstance().getUserInfo().getUser_id()+"");
 
-        NetClient.getInstance().getTreatrueApi().getFormList(MyApplication.getInstance().getUserInfo().getId(), 1).enqueue(new Callback<FormListInfo>() {
+        NetClient.getInstance().getTreatrueApi().getFormList(MyApplication.getInstance().getUserInfo().getUser_id(), 1).enqueue(new Callback<FormListInfo>() {
             @Override
             public void onResponse(Call<FormListInfo> call, Response<FormListInfo> response) {
                 if (response.isSuccessful()) {

@@ -19,9 +19,11 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import io.agora.tutorials.application.MyApplication;
 import io.agora.tutorials.customizedvideosource.R;
 import io.agora.tutorials.db.UserDatabase;
 import io.agora.tutorials.entity.LoginInfo;
@@ -149,8 +151,22 @@ public class LoginActivity extends AppCompatActivity implements PermissionInterf
      * 把用户数据添加进数据库
      */
     private void insertUser(int user_id, int admin_id, String nickname, String photo, int house_id, String mobile, String password) {
+        //登录的用户
         UserInfo userInfo = new UserInfo(user_id, admin_id, nickname, photo, house_id, mobile, password);
-        UserDatabase.getInstance(this).getUserDao().insert(userInfo);
+        //在数据库里查询有没有这个手机号的用户
+        UserInfo userByDB = UserDatabase.getInstance(this).getUserDao().getUserByMobile(mobile);
+        //如果数据库没有这个用户就添加到数据库里
+        if (userByDB == null) {
+            UserDatabase.getInstance(this).getUserDao().insert(userInfo);
+        } else {
+            //如果有,就查看数据是否一样,如果一样就不添加,如果不一样就替换
+            if (!userByDB.equals(userInfo)) {
+                userByDB.setInfo(userInfo);
+                UserDatabase.getInstance(this).getUserDao().update(userByDB);
+            }
+        }
+
+
     }
 
     /**
