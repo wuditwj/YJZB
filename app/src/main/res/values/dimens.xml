@@ -3,11 +3,18 @@
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>
 
+
     <dimen name="called_nick_name">24sp</dimen>
     <dimen name="called_invite">14sp</dimen>
     <dimen name="form_title">18sp</dimen>
     <dimen name="form_texts">14sp</dimen>
     <dimen name="form_commit">17sp</dimen>
     <dimen name="login_texts">15sp</dimen>
+    <dimen name="list_form_item_name">12sp</dimen>
 
+
+    <!--**********************************XListView**********************************************-->
+    <dimen name="header_height">60dp</dimen>
+    <dimen name="footer_height">90dp</dimen>
+    <dimen name="footer_padding">10dp</dimen>
 </resources>
