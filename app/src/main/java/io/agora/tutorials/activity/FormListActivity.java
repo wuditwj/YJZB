@@ -5,6 +5,7 @@ import android.os.Handler;
 import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -18,8 +19,10 @@ import java.util.Locale;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import io.agora.tutorials.adapter.FormListAdapter;
 import io.agora.tutorials.application.MyApplication;
 import io.agora.tutorials.customizedvideosource.R;
+import io.agora.tutorials.entity.FormInfo;
 import io.agora.tutorials.entity.FormListInfo;
 import io.agora.tutorials.net.NetClient;
 import io.agora.tutorials.widget.XListView;
@@ -36,11 +39,10 @@ public class FormListActivity extends AppCompatActivity implements XListView.IXL
     @BindView(R.id.list_form)
     XListView mListView;
 
-    private ArrayAdapter<String> mAdapter;
-    private ArrayList<String> items = new ArrayList<String>();
+    private FormListAdapter mAdapter;
     private Handler mHandler;
-    private int mIndex = 0;
-    private int mRefreshIndex = 0;
+    private int indexPage = 1;
+    private int totalPage;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,7 +54,7 @@ public class FormListActivity extends AppCompatActivity implements XListView.IXL
         ImmersionBar.with(this).statusBarView(statusbar).statusBarDarkFont(true, 0.2f).init();
         ButterKnife.bind(this);
         //给集合添加数据
-        geneItems();
+//        geneItems();
         init();
 
     }
@@ -76,48 +78,59 @@ public class FormListActivity extends AppCompatActivity implements XListView.IXL
         mListView.setXListViewListener(this);
         mListView.setRefreshTime(getTime());
 
-        mAdapter = new ArrayAdapter<String>(this, R.layout.vw_list_item, items);
+        mAdapter = new FormListAdapter(this);
         mListView.setAdapter(mAdapter);
 
-        getFormList(1);
+//        getFormList(indexPage);
     }
 
 
     @Override
     public void onRefresh() {
+        Log.i("--==>>", "下滑");
         mHandler.postDelayed(new Runnable() {
             @Override
             public void run() {
-                mIndex = ++mRefreshIndex;
-                items.clear();
-                geneItems();
-                mAdapter = new ArrayAdapter<String>(FormListActivity.this, R.layout.vw_list_item,
-                        items);
+                mAdapter.clear();
+                indexPage=1;
+                getFormList(indexPage);
+                mAdapter = new FormListAdapter(FormListActivity.this);
                 mListView.setAdapter(mAdapter);
                 onLoad();
             }
-        }, 2500);
+        }, 0);
     }
 
     @Override
     public void onLoadMore() {
+        Log.i("--==>>", "上拉");
         mHandler.postDelayed(new Runnable() {
             @Override
             public void run() {
-                geneItems();
-                mAdapter.notifyDataSetChanged();
+                if (indexPage == totalPage) {
+                    Toast.makeText(FormListActivity.this, "没有数据了", Toast.LENGTH_SHORT).show();
+                } else {
+                    getFormList(++indexPage);
+                    mAdapter.notifyDataSetChanged();
+                }
                 onLoad();
             }
-        }, 2500);
+        }, 0);
     }
 
     private void getFormList(int page) {
+        Log.i("--==>>", "page:" + page);
         NetClient.getInstance().getTreatrueApi().getFormList(MyApplication.getInstance().getUserInfo().getUser_id(), page).enqueue(new Callback<FormListInfo>() {
             @Override
             public void onResponse(Call<FormListInfo> call, Response<FormListInfo> response) {
                 if (response.isSuccessful()) {
                     FormListInfo formListInfo = response.body();
                     if (formListInfo != null) {
+                        totalPage = formListInfo.getTotalPages();
+                        FormInfo[] data = formListInfo.getData();
+                        for (FormInfo formInfo : data) {
+                            mAdapter.add(formInfo);
+                        }
                         Log.i("--==>>", formListInfo.toString());
                     } else {
                         Log.i("--==>>", "未知错误");
@@ -132,13 +145,6 @@ public class FormListActivity extends AppCompatActivity implements XListView.IXL
                 Log.i("--==>>", "查询表单列表信息请求失败" + t.getMessage());
             }
         });
-    }
-
-
-    private void geneItems() {
-        for (int i = 0; i != 20; ++i) {
-            items.add("Test XListView item " + (++mIndex));
-        }
     }
 
     private void onLoad() {

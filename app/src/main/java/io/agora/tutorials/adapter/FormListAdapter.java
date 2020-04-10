@@ -21,6 +21,14 @@ public class FormListAdapter extends BaseAdapter {
         this.context = context;
     }
 
+    public void add(FormInfo formInfo) {
+        list.add(formInfo);
+    }
+
+    public void clear(){
+        list.clear();
+    }
+
     @Override
     public int getCount() {
         return list.size();
@@ -42,12 +50,20 @@ public class FormListAdapter extends BaseAdapter {
         if (view == null) {
             viewHold = new ViewHold();
             view = View.inflate(context, R.layout.item_list_form, null);
-            viewHold.name=view.findViewById(R.id.form_list_item_name);
-            viewHold.car=view.findViewById(R.id.form_list_item_car_type);
-            viewHold.drive=view.findViewById(R.id.form_list_item_drive);
+            viewHold.name = view.findViewById(R.id.form_list_item_name);
+            viewHold.car = view.findViewById(R.id.form_list_item_car_type);
+            viewHold.drive = view.findViewById(R.id.form_list_item_drive);
             view.setTag(viewHold);
-        }else{
-            viewHold= (ViewHold) view.getTag();
+        } else {
+            viewHold = (ViewHold) view.getTag();
+        }
+        FormInfo formInfo = list.get(i);
+        viewHold.name.setText(formInfo.getUsername());
+        viewHold.car.setText(formInfo.getType_name());
+        if (formInfo.getBay_car() == 1) {
+            viewHold.drive.setText("是");
+        } else {
+            viewHold.drive.setText("否");
         }
         return view;
     }
