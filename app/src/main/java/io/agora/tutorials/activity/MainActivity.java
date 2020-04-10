@@ -1,5 +1,6 @@
 package io.agora.tutorials.activity;
 
+import android.annotation.SuppressLint;
 import android.app.ActivityManager;
 import android.app.AlertDialog;
 import android.content.Context;
@@ -51,6 +52,9 @@ public class MainActivity extends BasePermissionActivity {
     //个人信息
     @BindView(R.id.ll_msg)
     LinearLayout llMsg;
+    //用户预约表单
+    @BindView(R.id.ll_form)
+    LinearLayout llForm;
     //设置
     @BindView(R.id.ll_setting)
     LinearLayout llSetting;
@@ -72,6 +76,7 @@ public class MainActivity extends BasePermissionActivity {
     //名字
     @BindView(R.id.tv_uer_name)
     TextView tvUerName;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -145,18 +150,26 @@ public class MainActivity extends BasePermissionActivity {
         super.onResume();
     }
 
-    @OnClick({R.id.ll_msg, R.id.ll_setting, R.id.ll_log_out, R.id.show_mute, R.id.id_show_text})
+    @OnClick({R.id.ll_msg, R.id.ll_form, R.id.ll_setting, R.id.ll_log_out, R.id.show_mute})
     public void onViewClicked(View view) {
         switch (view.getId()) {
+            //个人信息
             case R.id.ll_msg:
                 startActivity(new Intent(this, UserInformationActivity.class));
                 break;
+            //个人信息
+            case R.id.ll_form:
+                startActivity(new Intent(this, FormListActivity.class));
+                break;
+            //设置
             case R.id.ll_setting:
                 startActivity(new Intent(this, SettingActivity.class));
                 break;
+            //退出登录
             case R.id.ll_log_out:
                 showDialog();
                 break;
+            //等待呼叫...
             case R.id.show_mute:
                 startActivity(new Intent(this, CameraActivity.class));
                 break;

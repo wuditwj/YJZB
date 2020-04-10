@@ -116,11 +116,6 @@ public class CallInServerCenter {
                         Log.i(TAG, clientInfo.toString());
                         MyApplication.getInstance().setClientInfo(clientInfo);
                         Intent intent = new Intent(context, CalledActivity.class);
-//                        Bundle myBundle = new Bundle();
-//                        myBundle.putString("name", clientInfo.getData().getNickname());
-//                        myBundle.putString("head", clientInfo.getData().getHeadimgurl());
-//                        myBundle.putString("mobile", clientInfo.getData().getMobile());
-//                        intent.putExtra("message", myBundle);
                         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_EXCLUDE_FROM_RECENTS);
                         context.startActivity(intent);
                     } else {

@@ -4,6 +4,7 @@ import io.agora.tutorials.entity.CalledInfo;
 import io.agora.tutorials.entity.CallStatus;
 import io.agora.tutorials.entity.ClientCommitInfo;
 import io.agora.tutorials.entity.ClientFormStatus;
+import io.agora.tutorials.entity.FormListInfo;
 import io.agora.tutorials.entity.LoginInfo;
 import io.agora.tutorials.entity.ClientInfo;
 import io.agora.tutorials.entity.MuteInfo;
@@ -51,4 +52,8 @@ public interface RequestApi {
     //查询勿扰状态
     @GET("Admin/Infor/gettrest")
     Call<MuteInfo> getMute(@Query("id") int id);
+
+    //获取所有的表单
+    @GET("Admin/Index/getinfo")
+    Call<FormListInfo> getFormList(@Query("adviser_id") int adviser_id, @Query("page") int page);
 }

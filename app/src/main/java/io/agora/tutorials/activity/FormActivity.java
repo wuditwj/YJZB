@@ -267,6 +267,7 @@ public class FormActivity extends AppCompatActivity {
         commitInfo.setMobile(formClientMobile.getText().toString().trim());
         commitInfo.setType_name(formCarType.getText().toString().trim());
         commitInfo.setContents(formCause.getText().toString().trim());
+        commitInfo.setAdviser_id(MyApplication.getInstance().getUserInfo().getId());
         String jsonObject = new Gson().toJson(commitInfo);
         Log.i("--==>>", jsonObject);
         NetClient.getInstance().getTreatrueApi().commitClientInfo(jsonObject).enqueue(new Callback<CallStatus>() {

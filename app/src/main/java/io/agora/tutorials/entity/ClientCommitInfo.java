@@ -4,6 +4,7 @@ package io.agora.tutorials.entity;
  * 提交用户信息
  */
 public class ClientCommitInfo {
+    //这条信息的ID
     private int id;
     //网名
     private String username;
@@ -19,6 +20,16 @@ public class ClientCommitInfo {
     private int by_car;
     //原因
     private String contents;
+    //使用者的ID
+    private int adviser_id;
+
+    public int getAdviser_id() {
+        return adviser_id;
+    }
+
+    public void setAdviser_id(int adviser_id) {
+        this.adviser_id = adviser_id;
+    }
 
     public int getId() {
         return id;
@@ -95,6 +106,7 @@ public class ClientCommitInfo {
                 ", level='" + level + '\'' +
                 ", by_car=" + by_car +
                 ", contents='" + contents + '\'' +
+                ", adviser_id=" + adviser_id +
                 '}';
     }
 }
