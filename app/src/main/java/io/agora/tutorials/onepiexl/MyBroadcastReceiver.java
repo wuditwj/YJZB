@@ -30,8 +30,9 @@ public class MyBroadcastReceiver extends BroadcastReceiver {
             loginState = sharedPreferences.getBoolean("loginState", false);
 
 
-            if (context.getResources().getString(R.string.service_package_name).equals(service.service.getClassName())) {
+            if (MyApplication.getInstance().getServicePackageName().equals(service.service.getClassName())) {
                 isServiceRunning = true;
+                break;
             } else {
                 isServiceRunning = false;
             }

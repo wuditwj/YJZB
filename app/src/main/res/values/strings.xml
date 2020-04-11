@@ -11,7 +11,6 @@
     <string name="agora_app_id">e9cbe168d89941938a333e51f6aa327c</string>
     <string name="TRTCCloud_app_id">1400344863</string>
     <string name="TRTCCloud_app_key">d34db8ba4bdcb1f192f2bb921450bed54964e49335752f64c7db0d7e9d4eb10f</string>
-    <string name="service_package_name">"io.agora.tutorials.service.CalledService"</string>
     <string name="str_common_type">通用模型</string>
     <string name="str_frame_src">数据来源</string>
     <string name="str_is_pre_process">是否预处理</string>

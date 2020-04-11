@@ -14,6 +14,7 @@ import io.agora.tutorials.db.UserDatabase;
 import io.agora.tutorials.entity.ClientInfo;
 import io.agora.tutorials.entity.UserInfo;
 import io.agora.tutorials.onepiexl.MyBroadcastReceiver;
+import io.agora.tutorials.service.CalledService;
 
 public class MyApplication extends Application {
     private static MyApplication instance;
@@ -73,6 +74,10 @@ public class MyApplication extends Application {
         //获取用户信息
         UserInfo userByName = UserDatabase.getInstance(this).getUserDao().getUserByMobile(mobile);
         return userByName;
+    }
+
+    public String getServicePackageName(){
+        return CalledService.class.getName();
     }
 
 }
