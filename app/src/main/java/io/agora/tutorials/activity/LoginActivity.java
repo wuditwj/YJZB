@@ -176,10 +176,9 @@ public class LoginActivity extends AppCompatActivity implements PermissionInterf
         SharedPreferences sharedPreferences = getSharedPreferences("login", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
         //是否是已登录状态
-        editor.putBoolean("loginState", true);
+        editor.putBoolean("loginState", true).commit();
         //手机号
-        editor.putString("mobile", userMobile);
-        editor.commit();
+        editor.putString("mobile", userMobile).commit();
         startActivity(new Intent(this, MainActivity.class));
         finish();
     }
