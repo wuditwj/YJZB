@@ -9,6 +9,7 @@ import android.os.Build;
 import android.util.Log;
 
 import io.agora.tutorials.application.MyApplication;
+import io.agora.tutorials.customizedvideosource.R;
 import io.agora.tutorials.service.CalledService;
 
 public class MyBroadcastReceiver extends BroadcastReceiver {
@@ -29,7 +30,7 @@ public class MyBroadcastReceiver extends BroadcastReceiver {
             loginState = sharedPreferences.getBoolean("loginState", false);
 
 
-            if ("io.agora.tutorials.service.CalledService".equals(service.service.getClassName())) {
+            if (context.getResources().getString(R.string.service_package_name).equals(service.service.getClassName())) {
                 isServiceRunning = true;
             } else {
                 isServiceRunning = false;

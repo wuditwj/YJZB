@@ -132,14 +132,14 @@ public class MainActivity extends BasePermissionActivity {
             }
         });
         //获取服务运行状态
-        boolean serviceRunning = isServiceRunning(this, "io.agora.tutorials.service.CalledService");
+        boolean serviceRunning = isServiceRunning(this, this.getResources().getString(R.string.service_package_name));
         if (!serviceRunning) {
             //勿扰模式开着如果服务在运行就关闭
             //关闭服务
             startService(new Intent(this, CalledService.class));
         }
         //因为上面可能会执行打开服务操作,所以需要第二次判断,是否真的打开了
-        boolean serviceRunning2 = isServiceRunning(this, "io.agora.tutorials.service.CalledService");
+        boolean serviceRunning2 = isServiceRunning(this, this.getResources().getString(R.string.service_package_name));
         if (!serviceRunning2) {
             showMute.setText(R.string.dnd_mode_open);
         } else {
