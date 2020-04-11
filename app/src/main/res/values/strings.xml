@@ -105,12 +105,12 @@
     <string name="btn_scroll_view">ScrollView demo</string>
     <string name="btn_list_view">ListView demo</string>
 
-    <string name="header_hint_refresh_normal">Pull to refresh</string>
-    <string name="header_hint_refresh_ready">Release to refresh</string>
-    <string name="header_hint_refresh_loading">Refreshing&#8230;</string>
-    <string name="header_hint_refresh_time">Time：</string>
-    <string name="footer_hint_load_normal">Load more</string>
-    <string name="footer_hint_load_ready">Release to load more</string>
+    <string name="header_hint_refresh_normal">下拉更新</string>
+    <string name="header_hint_refresh_ready">松开可以刷新</string>
+    <string name="header_hint_refresh_loading">正在刷新&#8230;</string>
+    <string name="header_hint_refresh_time">更新于：</string>
+    <string name="footer_hint_load_normal">加载更多</string>
+    <string name="footer_hint_load_ready">松开载入更多</string>
 
     <!-- ***********************阿里巴巴矢量图标库代码*************************************** -->
     <string name="hang_up">&#xe60e;</string>//挂断

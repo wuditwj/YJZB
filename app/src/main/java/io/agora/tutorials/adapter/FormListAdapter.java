@@ -1,6 +1,7 @@
 package io.agora.tutorials.adapter;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -36,7 +37,9 @@ public class FormListAdapter extends BaseAdapter {
 
     @Override
     public Object getItem(int i) {
-        return list.get(i);
+        Log.i("--==>>","i="+i);
+        Log.i("--==>>","信息:"+list.get(i-1).toString());
+        return list.get(i-1);
     }
 
     @Override

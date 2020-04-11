@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/form_cause"
-    tools:context="io.agora.tutorials.activity.FormActivity"
+    tools:context="io.agora.tutorials.activity.FormCommitActivity"
     android:paddingBottom="19dp">
 
 

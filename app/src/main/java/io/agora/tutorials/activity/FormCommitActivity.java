@@ -34,7 +34,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class FormActivity extends AppCompatActivity {
+public class FormCommitActivity extends AppCompatActivity {
     @BindView(R.id.toolbar)
     Toolbar toolbar;
     //用户网名
@@ -82,7 +82,7 @@ public class FormActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_form);
+        setContentView(R.layout.activity_form_commit);
         //初始化状态栏的高度
         View statusbar = (View) findViewById(R.id.form_status_bar);
         //沉浸式状态栏
@@ -154,7 +154,7 @@ public class FormActivity extends AppCompatActivity {
         fillInCarType(clientCommitInfo.getType_name());
         //客户级别
         fillInLevel(clientCommitInfo.getLevel());
-//        //试驾
+        //试驾
         fillInDrive(clientCommitInfo.getBy_car());
     }
 

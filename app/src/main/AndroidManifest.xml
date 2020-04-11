@@ -48,6 +48,7 @@
         android:supportsRtl="true"
         android:theme="@style/MyAppTheme"
         android:usesCleartextTraffic="true">
+        <activity android:name="io.agora.tutorials.activity.FormInformationActivity"></activity>
         <!-- 适配华为（huawei）刘海屏 -->
         <meta-data
             android:name="android.notch_support"
@@ -57,8 +58,8 @@
             android:value="portrait|landscape" />
 
         <activity android:name="test.TestActivity" />
-        <activity android:name="io.agora.tutorials.activity.FormListActivity"/>
-        <activity android:name="io.agora.tutorials.activity.FormActivity" />
+        <activity android:name="io.agora.tutorials.activity.FormListActivity" />
+        <activity android:name="io.agora.tutorials.activity.FormCommitActivity" />
         <activity android:name="io.agora.tutorials.activity.UserInformationActivity" />
         <activity android:name="io.agora.tutorials.activity.SettingActivity" />
         <activity android:name="io.agora.tutorials.activity.MainActivity" />

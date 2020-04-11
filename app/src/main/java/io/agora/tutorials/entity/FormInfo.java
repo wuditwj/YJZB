@@ -1,6 +1,8 @@
 package io.agora.tutorials.entity;
 
-public class FormInfo {
+import java.io.Serializable;
+
+public class FormInfo implements Serializable {
     /**
      * {
      * "id": "2",

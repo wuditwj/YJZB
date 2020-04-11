@@ -1,9 +1,11 @@
 package io.agora.tutorials.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Toast;
 
@@ -81,6 +83,22 @@ public class FormListActivity extends AppCompatActivity implements XListView.IXL
         mAdapter = new FormListAdapter(this);
         mListView.setAdapter(mAdapter);
 
+        mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                Object item = mAdapter.getItem(i);
+                if (item != null) {
+                    FormInfo formInfo = (FormInfo) item;
+                    Intent intent = new Intent(FormListActivity.this, FormInformationActivity.class);
+                    Bundle bundle = new Bundle();
+                    bundle.putSerializable("formInfo", formInfo);
+                    intent.putExtras(bundle);
+                    startActivity(intent);
+                }
+
+            }
+        });
+
 //        getFormList(indexPage);
     }
 
@@ -92,7 +110,7 @@ public class FormListActivity extends AppCompatActivity implements XListView.IXL
             @Override
             public void run() {
                 mAdapter.clear();
-                indexPage=1;
+                indexPage = 1;
                 getFormList(indexPage);
                 mAdapter = new FormListAdapter(FormListActivity.this);
                 mListView.setAdapter(mAdapter);

@@ -12,7 +12,6 @@ import android.view.LayoutInflater;
 import android.view.Surface;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.WindowManager;
 import android.widget.Toast;
 
 import com.llvision.glass3.core.camera.client.CameraException;
@@ -41,7 +40,7 @@ import io.agora.rtc.IRtcEngineEventHandler;
 import io.agora.rtc.RtcEngine;
 import io.agora.rtc.video.AgoraVideoFrame;
 import io.agora.rtc.video.VideoEncoderConfiguration;
-import io.agora.tutorials.activity.FormActivity;
+import io.agora.tutorials.activity.FormCommitActivity;
 import io.agora.tutorials.application.MyApplication;
 import io.agora.tutorials.call.CallInServerCenter;
 import io.agora.tutorials.customizedvideosource.R;
@@ -513,7 +512,7 @@ public class CameraFragment extends BaseFragment implements View.OnClickListener
         //停止通话
         new CallInServerCenter(getActivity()).closeCall();
         getActivity().finish();
-        startActivity(new Intent(getActivity(), FormActivity.class));
+        startActivity(new Intent(getActivity(), FormCommitActivity.class));
         Log.i("--==>>", "资源释放完毕");
     }
 
