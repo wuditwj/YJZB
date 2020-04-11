@@ -1,6 +1,5 @@
 package io.agora.tutorials.activity;
 
-import android.annotation.SuppressLint;
 import android.app.ActivityManager;
 import android.app.AlertDialog;
 import android.content.Context;
@@ -76,6 +75,10 @@ public class MainActivity extends BasePermissionActivity {
     //名字
     @BindView(R.id.tv_uer_name)
     TextView tvUerName;
+    //服务器异常
+    @BindView(R.id.show_net)
+    TextView showNet;
+    public static MainActivity mainActivity;
 
 
     @Override
@@ -86,6 +89,7 @@ public class MainActivity extends BasePermissionActivity {
         LogUtil.setLogSaveLocal(true);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
+        mainActivity = this;
         //侧滑栏
         menu();
         String head = MyApplication.getInstance().getUserInfo().getPhoto();
@@ -173,6 +177,14 @@ public class MainActivity extends BasePermissionActivity {
             case R.id.show_mute:
                 startActivity(new Intent(this, CameraActivity.class));
                 break;
+        }
+    }
+
+    public void setNet(boolean flag) {
+        if (flag) {
+            showNet.setText("");
+        } else {
+            showNet.setText(R.string.main_net);
         }
     }
 

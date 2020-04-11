@@ -9,6 +9,7 @@ import android.util.Log;
 
 import io.agora.tutorials.activity.CalledActivity;
 import io.agora.tutorials.activity.CameraActivity;
+import io.agora.tutorials.activity.MainActivity;
 import io.agora.tutorials.application.MyApplication;
 import io.agora.tutorials.db.UserDatabase;
 import io.agora.tutorials.entity.CalledInfo;
@@ -61,6 +62,9 @@ public class CallInServerCenter {
                 if (response.isSuccessful()) {
                     CalledInfo body = response.body();
                     if (body != null) {
+                        if(MainActivity.mainActivity!=null){
+                            MainActivity.mainActivity.setNet(true);
+                        }
                         switch (body.getData()) {
                             //有用户请求
                             case 1:
@@ -98,6 +102,9 @@ public class CallInServerCenter {
 
             @Override
             public void onFailure(Call<CalledInfo> call, Throwable t) {
+                if(MainActivity.mainActivity!=null){
+                    MainActivity.mainActivity.setNet(false);
+                }
                 Log.i(TAG, "监听用户呼叫请求失败" + t.getMessage());
             }
         });

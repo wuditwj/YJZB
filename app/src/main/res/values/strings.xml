@@ -99,6 +99,7 @@
     <string name="list_form_name">姓名</string>
     <string name="list_form_car_type">车型</string>
     <string name="list_form_drive">是/否愿意试驾</string>
+    <string name="main_net">服务器连接异常&#046;&#046;&#046;</string>
 
 
     <!--**********************************XListView**********************************************-->
