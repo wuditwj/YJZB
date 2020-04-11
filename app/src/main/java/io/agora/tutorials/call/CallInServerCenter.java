@@ -88,9 +88,9 @@ public class CallInServerCenter {
                                 if (CalledActivity.calledActivity != null) {
                                     CalledActivity.calledActivity.finish();
                                 }
-//                                if (CameraActivity.cameraActivity != null) {
-//                                    CameraActivity.cameraActivity.finish();
-//                                }
+                                if (CameraActivity.cameraActivity != null) {
+                                    CameraActivity.cameraActivity.finish();
+                                }
                                 break;
                         }
                     } else {

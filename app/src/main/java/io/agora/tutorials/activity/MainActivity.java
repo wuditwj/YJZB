@@ -161,7 +161,7 @@ public class MainActivity extends BasePermissionActivity {
             case R.id.ll_msg:
                 startActivity(new Intent(this, UserInformationActivity.class));
                 break;
-            //个人信息
+            //预约表单
             case R.id.ll_form:
                 startActivity(new Intent(this, FormListActivity.class));
                 break;
@@ -175,7 +175,7 @@ public class MainActivity extends BasePermissionActivity {
                 break;
             //等待呼叫...
             case R.id.show_mute:
-                startActivity(new Intent(this, CameraActivity.class));
+//                startActivity(new Intent(this, CameraActivity.class));
                 break;
         }
     }
