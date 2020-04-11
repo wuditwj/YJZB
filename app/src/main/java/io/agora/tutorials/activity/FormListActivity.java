@@ -86,7 +86,7 @@ public class FormListActivity extends AppCompatActivity implements XListView.IXL
         mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                Object item = mAdapter.getItem(i);
+                Object item = mAdapter.getItem(i-1);
                 if (item != null) {
                     FormInfo formInfo = (FormInfo) item;
                     Intent intent = new Intent(FormListActivity.this, FormInformationActivity.class);
@@ -105,7 +105,6 @@ public class FormListActivity extends AppCompatActivity implements XListView.IXL
 
     @Override
     public void onRefresh() {
-        Log.i("--==>>", "下滑");
         mHandler.postDelayed(new Runnable() {
             @Override
             public void run() {
@@ -121,7 +120,6 @@ public class FormListActivity extends AppCompatActivity implements XListView.IXL
 
     @Override
     public void onLoadMore() {
-        Log.i("--==>>", "上拉");
         mHandler.postDelayed(new Runnable() {
             @Override
             public void run() {
@@ -137,7 +135,6 @@ public class FormListActivity extends AppCompatActivity implements XListView.IXL
     }
 
     private void getFormList(int page) {
-        Log.i("--==>>", "page:" + page);
         NetClient.getInstance().getTreatrueApi().getFormList(MyApplication.getInstance().getUserInfo().getUser_id(), page).enqueue(new Callback<FormListInfo>() {
             @Override
             public void onResponse(Call<FormListInfo> call, Response<FormListInfo> response) {
@@ -149,7 +146,7 @@ public class FormListActivity extends AppCompatActivity implements XListView.IXL
                         for (FormInfo formInfo : data) {
                             mAdapter.add(formInfo);
                         }
-                        Log.i("--==>>", formListInfo.toString());
+//                        Log.i("--==>>", formListInfo.toString());
                     } else {
                         Log.i("--==>>", "未知错误");
                     }

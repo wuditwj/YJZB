@@ -37,9 +37,7 @@ public class FormListAdapter extends BaseAdapter {
 
     @Override
     public Object getItem(int i) {
-        Log.i("--==>>","i="+i);
-        Log.i("--==>>","信息:"+list.get(i-1).toString());
-        return list.get(i-1);
+        return list.get(i);
     }
 
     @Override
