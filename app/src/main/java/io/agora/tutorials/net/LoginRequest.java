@@ -15,8 +15,8 @@ public class LoginRequest {
     private static String TAG="--==>>";
 
 
-    public static void setLoginStatus(int login) {
-        NetClient.getInstance().getTreatrueApi().setLogin(MyApplication.getInstance().getUserInfo().getUser_id(), login).enqueue(new Callback<CallStatus>() {
+    public void setLoginStatus(int id,int login) {
+        NetClient.getInstance().getTreatrueApi().setLogin(id, login).enqueue(new Callback<CallStatus>() {
             @Override
             public void onResponse(Call<CallStatus> call, Response<CallStatus> response) {
                 if (response.isSuccessful()) {

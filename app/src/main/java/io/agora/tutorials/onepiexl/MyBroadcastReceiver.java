@@ -22,7 +22,7 @@ public class MyBroadcastReceiver extends BroadcastReceiver {
         boolean isServiceRunning = false;
         ActivityManager manager = (ActivityManager) MyApplication.getInstance().getApplicationContext().getSystemService(Context.ACTIVITY_SERVICE);
         for (ActivityManager.RunningServiceInfo service : manager.getRunningServices(Integer.MAX_VALUE)) {
-            Log.i("--==>>", "检查服务是否运行");
+            Log.i("--==>", "检查服务是否运行");
             //获取勿扰模式是否开启
             //登录状态
             SharedPreferences sharedPreferences = MyApplication.getInstance().getApplicationContext().getSharedPreferences("login", Context.MODE_PRIVATE);

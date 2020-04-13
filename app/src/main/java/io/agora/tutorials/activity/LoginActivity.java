@@ -112,7 +112,7 @@ public class LoginActivity extends AppCompatActivity implements PermissionInterf
      * 登录
      */
     private void login(String userMobile, final String userPassword) {
-        Log.i("--==>>", "可以登录,手机号为:" + userMobile + "    密码为:" + userPassword);
+//        Log.i("--==>>", "可以登录,手机号为:" + userMobile + "    密码为:" + userPassword);
         NetClient.getInstance().getTreatrueApi().login(userMobile, userPassword).enqueue(new Callback<LoginInfo>() {
             @Override
             public void onResponse(Call<LoginInfo> call, Response<LoginInfo> response) {
@@ -120,15 +120,15 @@ public class LoginActivity extends AppCompatActivity implements PermissionInterf
                     LoginInfo loginInfo = response.body();
                     if (loginInfo != null) {
                         if (loginInfo.getStatus().equals("success")) {
-                            Log.i("--==>>", "登录成功:" + loginInfo.toString());
-                            head = loginInfo.getData().getPhoto();
-                            insertUser(loginInfo.getData().getId(),
+//                            Log.i("--==>>", "登录成功:" + loginInfo.toString());
+                            new LoginRequest().setLoginStatus(loginInfo.getData().getId(), 2);
+                            insertUser(new UserInfo(loginInfo.getData().getId(),
                                     loginInfo.getData().getAdmin_id(),
                                     loginInfo.getData().getNickname(),
                                     loginInfo.getData().getPhoto(),
                                     loginInfo.getData().getHouse_id(),
                                     loginInfo.getData().getMobile(),
-                                    userPassword);
+                                    userPassword));
                             loginState();
                         } else {
                             Log.i("--==>>", "登录失败");
@@ -151,11 +151,9 @@ public class LoginActivity extends AppCompatActivity implements PermissionInterf
     /**
      * 把用户数据添加进数据库
      */
-    private void insertUser(int user_id, int admin_id, String nickname, String photo, int house_id, String mobile, String password) {
-        //登录的用户
-        UserInfo userInfo = new UserInfo(user_id, admin_id, nickname, photo, house_id, mobile, password);
+    private void insertUser(UserInfo userInfo) {
         //在数据库里查询有没有这个手机号的用户
-        UserInfo userByDB = UserDatabase.getInstance(this).getUserDao().getUserByMobile(mobile);
+        UserInfo userByDB = UserDatabase.getInstance(this).getUserDao().getUserByMobile(userInfo.getMobile());
         //如果数据库没有这个用户就添加到数据库里
         if (userByDB == null) {
             UserDatabase.getInstance(this).getUserDao().insert(userInfo);
@@ -180,7 +178,6 @@ public class LoginActivity extends AppCompatActivity implements PermissionInterf
         editor.putBoolean("loginState", true).commit();
         //手机号
         editor.putString("mobile", userMobile).commit();
-        LoginRequest.setLoginStatus(2);
         startActivity(new Intent(this, MainActivity.class));
         finish();
     }

@@ -215,7 +215,7 @@ public class MainActivity extends BasePermissionActivity {
      * 退出登录
      */
     private void logout() {
-        LoginRequest.setLoginStatus(1);
+        new LoginRequest().setLoginStatus(MyApplication.getInstance().getUserInfo().getUser_id(),1);
         SharedPreferences sharedPreferences = getSharedPreferences("login", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
         //修改已登录状态
