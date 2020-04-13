@@ -189,7 +189,7 @@ public class FormCommitActivity extends AppCompatActivity {
     }
 
     /**
-     * 级别选择框
+     * 车型选择框
      *
      * @return
      */
@@ -259,13 +259,19 @@ public class FormCommitActivity extends AppCompatActivity {
     @OnClick(R.id.form_commit)
     public void onViewClicked() {
         String name = formClientScreenName.getText().toString().trim();
+        //用户名
         if (name.isEmpty()) {
             commitInfo.setUsername("空");
         } else {
             commitInfo.setUsername(name);
         }
+        //手机号
         commitInfo.setMobile(formClientMobile.getText().toString().trim());
+        //车型
         commitInfo.setType_name(formCarType.getText().toString().trim());
+        //级别
+        commitInfo.setLevel(formClientLevel.getText().toString().trim());
+        //原因
         commitInfo.setContents(formCause.getText().toString().trim());
         commitInfo.setAdviser_id(MyApplication.getInstance().getUserInfo().getUser_id());
         String jsonObject = new Gson().toJson(commitInfo);

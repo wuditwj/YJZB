@@ -28,6 +28,7 @@ import io.agora.tutorials.customizedvideosource.R;
 import io.agora.tutorials.db.UserDatabase;
 import io.agora.tutorials.entity.LoginInfo;
 import io.agora.tutorials.entity.UserInfo;
+import io.agora.tutorials.net.LoginRequest;
 import io.agora.tutorials.net.NetClient;
 import io.agora.tutorials.utils.PermissionHelper;
 import io.agora.tutorials.utils.PermissionInterface;
@@ -179,6 +180,7 @@ public class LoginActivity extends AppCompatActivity implements PermissionInterf
         editor.putBoolean("loginState", true).commit();
         //手机号
         editor.putString("mobile", userMobile).commit();
+        LoginRequest.setLoginStatus(2);
         startActivity(new Intent(this, MainActivity.class));
         finish();
     }

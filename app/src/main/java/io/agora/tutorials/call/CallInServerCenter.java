@@ -46,9 +46,14 @@ public class CallInServerCenter {
         String mobile = sharedPreferences.getString("mobile", "");
         //获取用户信息
         UserInfo userByName = UserDatabase.getInstance(context).getUserDao().getUserByMobile(mobile);
-        //拼接房间号
-        roomId=userByName.getMobile();
-        houseId=userByName.getHouse_id();
+        if(userByName!=null){
+            //拼接房间号
+            roomId=userByName.getMobile();
+            houseId=userByName.getHouse_id();
+        }else{
+            roomId="0";
+            houseId=0;
+        }
     }
 
     /**
@@ -70,7 +75,7 @@ public class CallInServerCenter {
                             case 1:
                                 num++;
                                 uId = body.getUid();
-                                Log.i(TAG, "用户Id:" + uId);
+//                                Log.i(TAG, "用户Id:" + uId);
                                 if (num == 1) {
                                     //查询用户信息,跳转页面
                                     getUserinfo(body.getUid());
@@ -120,7 +125,7 @@ public class CallInServerCenter {
                 if (response.isSuccessful()) {
                     ClientInfo clientInfo = response.body();
                     if (clientInfo != null) {
-                        Log.i(TAG, clientInfo.toString());
+//                        Log.i(TAG, clientInfo.toString());
                         MyApplication.getInstance().setClientInfo(clientInfo);
                         Intent intent = new Intent(context, CalledActivity.class);
                         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_EXCLUDE_FROM_RECENTS);

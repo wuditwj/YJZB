@@ -39,6 +39,7 @@ import butterknife.OnClick;
 import io.agora.tutorials.application.MyApplication;
 import io.agora.tutorials.customizedvideosource.R;
 import io.agora.tutorials.entity.MuteInfo;
+import io.agora.tutorials.net.LoginRequest;
 import io.agora.tutorials.net.NetClient;
 import io.agora.tutorials.service.CalledService;
 import io.agora.tutorials.utils.CircleTransform;
@@ -214,6 +215,7 @@ public class MainActivity extends BasePermissionActivity {
      * 退出登录
      */
     private void logout() {
+        LoginRequest.setLoginStatus(1);
         SharedPreferences sharedPreferences = getSharedPreferences("login", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
         //修改已登录状态

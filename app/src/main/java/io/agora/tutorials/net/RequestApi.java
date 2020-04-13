@@ -56,4 +56,7 @@ public interface RequestApi {
     //获取所有的表单
     @GET("Admin/Index/getinfo")
     Call<FormListInfo> getFormList(@Query("adviser_id") int adviser_id, @Query("page") int page);
+
+    @GET("Admin/Infor/logintype")
+    Call<CallStatus> setLogin(@Query("id") int id, @Query("login") int status);
 }
