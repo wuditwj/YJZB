@@ -91,6 +91,13 @@
                 <action android:name="android.intent.action.RESPOND_VIA_MESSAGE" />
             </intent-filter>
         </service>
+        <service
+            android:name="io.agora.tutorials.service.BackService"
+            android:enabled="true">
+            <intent-filter android:priority="1000">
+                <action android:name="android.intent.action.RESPOND_VIA_MESSAGE" />
+            </intent-filter>
+        </service>
     </application>
 
 </manifest>

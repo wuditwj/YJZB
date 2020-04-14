@@ -60,7 +60,7 @@ public class CalledActivity extends AppCompatActivity {
         ButterKnife.bind(this);
         userName = MyApplication.getInstance().getClientInfo().getData().getNickname();
         userHead = MyApplication.getInstance().getClientInfo().getData().getHeadimgurl();
-        Log.i("--==>>", userHead);
+//        Log.i("--==>>", userHead);
         //加载头像
         Glide.with(this).load(userHead).into(clientHead);
         //显示用户名

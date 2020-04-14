@@ -106,6 +106,8 @@ public class MainActivity extends BasePermissionActivity {
     }
 
     private void init() {
+        //webSocket暂时不用
+//        startService(new Intent(this, BackService.class));
         //获取勿扰状态
         NetClient.getInstance().getTreatrueApi().getMute(MyApplication.getInstance().getUserInfo().getUser_id()).enqueue(new Callback<MuteInfo>() {
             @Override
