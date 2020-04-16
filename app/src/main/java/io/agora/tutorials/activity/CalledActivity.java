@@ -1,14 +1,10 @@
 package io.agora.tutorials.activity;
 
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
-import android.view.Window;
 import android.view.WindowManager;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -19,6 +15,7 @@ import com.gyf.immersionbar.ImmersionBar;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import io.agora.tutorials.application.MyApplication;
 import io.agora.tutorials.call.CallInServerCenter;
 import io.agora.tutorials.customizedvideosource.R;
@@ -43,9 +40,6 @@ public class CalledActivity extends AppCompatActivity {
     @BindView(R.id.answer)
     LinearLayout answer;
 
-    String userName;
-    String userHead;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,71 +52,37 @@ public class CalledActivity extends AppCompatActivity {
         ImmersionBar.with(this).init();
         setContentView(R.layout.activity_called);
         ButterKnife.bind(this);
-        userName = MyApplication.getInstance().getClientInfo().getData().getNickname();
-        userHead = MyApplication.getInstance().getClientInfo().getData().getHeadimgurl();
+        String userName = MyApplication.getInstance().getClientInfo().getData().getNickname();
+        String userHead = MyApplication.getInstance().getClientInfo().getData().getHeadimgurl();
 //        Log.i("--==>>", userHead);
         //加载头像
         Glide.with(this).load(userHead).into(clientHead);
         //显示用户名
         tvUserName.setText(userName);
-        //触摸监听
-        listener();
         //播放铃声
         BellUtils.startPlay(this);
     }
 
-    //触摸监听
-    private void listener() {
 
-        //挂断
-        hangUp.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                switch (event.getAction()) {
-                    //按下
-                    case MotionEvent.ACTION_DOWN:
-                        break;
-                    //移动
-                    case MotionEvent.ACTION_MOVE:
-                        break;
-                    //抬起
-                    case MotionEvent.ACTION_UP:
-                        //关闭铃声
-                        BellUtils.stopPlay();
-                        //停止通话
-                        new CallInServerCenter(CalledActivity.this).closeCall();
-                        finish();
-                        break;
-                }
-                return true;
-            }
-        });
-
-        //接听
-        answer.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-
-                switch (event.getAction()) {
-                    //按下
-                    case MotionEvent.ACTION_DOWN:
-                        break;
-                    //移动
-                    case MotionEvent.ACTION_MOVE:
-                        break;
-                    //抬起
-                    case MotionEvent.ACTION_UP:
-                        //关闭铃声
-                        BellUtils.stopPlay();
-                        //接通通话
-                        new CallInServerCenter(CalledActivity.this).startCall();
-                        startActivity(new Intent(CalledActivity.this, CameraActivity.class));
-                        finish();
-                        break;
-                }
-                return true;
-            }
-        });
+    @OnClick({R.id.hang_up, R.id.answer})
+    public void onViewClicked(View view) {
+        switch (view.getId()) {
+            case R.id.hang_up:
+                //关闭铃声
+                BellUtils.stopPlay();
+                //停止通话
+                new CallInServerCenter(CalledActivity.this).closeCall();
+                finish();
+                break;
+            case R.id.answer:
+                //关闭铃声
+                BellUtils.stopPlay();
+                //接通通话
+                new CallInServerCenter(CalledActivity.this).startCall();
+                startActivity(new Intent(CalledActivity.this, CameraActivity.class));
+                finish();
+                break;
+        }
     }
 
     @Override
@@ -138,4 +98,7 @@ public class CalledActivity extends AppCompatActivity {
         BellUtils.stopPlay();
         super.finish();
     }
+
+
+
 }

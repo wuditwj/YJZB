@@ -75,10 +75,10 @@ public class CallInServerCenter {
                             case 1:
                                 num++;
                                 uId = body.getUid();
-//                                Log.i(TAG, "用户Id:" + uId);
+                                Log.i(TAG, "用户Id:" + uId);
                                 if (num == 1) {
                                     //查询用户信息,跳转页面
-                                    getUserinfo(body.getUid());
+                                    getUserInfo(body.getUid());
                                 }
                                 break;
                             //员工确认接通
@@ -118,7 +118,7 @@ public class CallInServerCenter {
     /**
      * 根据用户Id查询用户信息
      */
-    private void getUserinfo(int uId) {
+    private void getUserInfo(int uId) {
         NetClient.getInstance().getTreatrueApi().getUserInfo(uId).enqueue(new Callback<ClientInfo>() {
             @Override
             public void onResponse(Call<ClientInfo> call, Response<ClientInfo> response) {

@@ -1,4 +1,4 @@
-package io.agora.tutorials.onepiexl;
+package io.agora.tutorials.broadcast;
 
 import android.app.ActivityManager;
 import android.content.BroadcastReceiver;
@@ -26,7 +26,6 @@ public class MyBroadcastReceiver extends BroadcastReceiver {
             //获取勿扰模式是否开启
             //登录状态
             SharedPreferences sharedPreferences = MyApplication.getInstance().getApplicationContext().getSharedPreferences("login", Context.MODE_PRIVATE);
-//            flag = sharedPreferences.getBoolean("mute", false);
             loginState = sharedPreferences.getBoolean("loginState", false);
 
 
@@ -38,6 +37,7 @@ public class MyBroadcastReceiver extends BroadcastReceiver {
             }
         }
         if (loginState && !isServiceRunning) {
+            Log.i("--==>>","重新启动Service");
             Intent i = new Intent(context, CalledService.class);
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                 context.startForegroundService(i);

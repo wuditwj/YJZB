@@ -148,6 +148,8 @@ public class MainActivity extends BasePermissionActivity {
         } else {
             showMute.setText(R.string.wait_called);
         }
+        Log.i("--==>>","1:"+serviceRunning);
+        Log.i("--==>>","2:"+serviceRunning2);
     }
 
     @Override

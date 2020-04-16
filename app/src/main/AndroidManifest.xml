@@ -2,17 +2,21 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     package="io.agora.tutorials.customizedvideosource">
-    <!-- 腾讯云所需要的权限 -->
-    <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+
+    <!-- 声网所需要的权限 -->
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.RECORD_AUDIO" />
-    <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" />
-    <uses-permission android:name="android.permission.BLUETOOTH" />
-    <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.BLUETOOTH" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <!--    // 如果你的场景中涉及读取外部存储，需添加如下权限：-->
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <!--    // 如果你使用的是 Android 10.0 及以上设备，还需要添加如下权限：-->
+    <uses-permission android:name="android.permission.READ_PRIVILEGED_PHONE_STATE" />
 
     <uses-feature android:name="android.hardware.Camera" />
     <uses-feature android:name="android.hardware.camera.autofocus" />
@@ -57,7 +61,6 @@
             android:name="notch.config"
             android:value="portrait|landscape" />
 
-        <activity android:name="test.TestActivity" />
         <activity android:name="io.agora.tutorials.activity.FormListActivity" />
         <activity android:name="io.agora.tutorials.activity.FormCommitActivity" />
         <activity android:name="io.agora.tutorials.activity.UserInformationActivity" />
@@ -78,11 +81,6 @@
             android:name="io.agora.tutorials.activity.CameraActivity"
             android:screenOrientation="landscape"
             android:theme="@style/FullScreenVideoTheme" />
-        <activity
-            android:name="io.agora.tutorials.activity.Camera2Activity"
-            android:screenOrientation="landscape"
-            android:theme="@style/FullScreenVideoTheme" />
-        <activity android:name="io.agora.tutorials.activity.VideoChatViewActivity" />
 
         <service
             android:name="io.agora.tutorials.service.CalledService"

@@ -8,12 +8,11 @@ import android.content.SharedPreferences;
 import android.os.Environment;
 
 import java.io.File;
-import java.sql.ClientInfoStatus;
 
 import io.agora.tutorials.db.UserDatabase;
 import io.agora.tutorials.entity.ClientInfo;
 import io.agora.tutorials.entity.UserInfo;
-import io.agora.tutorials.onepiexl.MyBroadcastReceiver;
+import io.agora.tutorials.broadcast.MyBroadcastReceiver;
 import io.agora.tutorials.service.CalledService;
 
 public class MyApplication extends Application {
@@ -49,9 +48,9 @@ public class MyApplication extends Application {
         super.onCreate();
         instance = this;
         IntentFilter filter = new IntentFilter(Intent.ACTION_TIME_TICK);
-        //广播
-        MyBroadcastReceiver receiver = new MyBroadcastReceiver();
-        registerReceiver(receiver, filter);
+//        //广播
+//        MyBroadcastReceiver receiver = new MyBroadcastReceiver();
+//        registerReceiver(receiver, filter);
         newFile();
     }
 
